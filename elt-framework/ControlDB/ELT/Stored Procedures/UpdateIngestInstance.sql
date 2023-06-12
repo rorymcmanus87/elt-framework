@@ -1,8 +1,8 @@
 ﻿CREATE PROCEDURE [ELT].[UpdateIngestInstance]
 	@ADFIngestPipelineRunID Uniqueidentifier,
 	@IngestStatus varchar(20) =null,
-	@DataFromTimestamp Datetime2 =null,
-	@DataToTimestamp Datetime2 =null,
+	@DataFromTimestamp Datetime2(7) =null,
+	@DataToTimestamp Datetime2(7) =null,
 	@DataFromNumber int =null,
 	@DataToNumber int =null,
 	@SourceCount int=null,
@@ -39,3 +39,6 @@ BEGIN
 	WHERE
 		ADFIngestPipelineRunID =@ADFIngestPipelineRunID
 END
+GO
+
+

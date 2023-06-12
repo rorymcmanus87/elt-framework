@@ -1,12 +1,12 @@
 ﻿CREATE PROCEDURE [ELT].[GetTransformDefinition_L2] 
 		@IngestID int, 
-		@DeltaDate datetime = null,
+		@WatermarkDate datetime = null,
 		@InputType varchar(15) = '%'
 AS
 	--declare @IngestID int
 	DECLARE @localdate datetime	= CONVERT(datetime,CONVERT(datetimeoffset, getdate()) at time zone 'AUS Eastern Standard Time')
 
-	--Should be using L2DeltaTransformDate, if null then LocalDate
+	--Should be using L2WatermarkTransformDate, if null then LocalDate
 		SELECT
 			--PK/FK
 			TD.[L2TransformID]
@@ -29,10 +29,12 @@ AS
 			,TD.[InputFile]
 			,TD.[InputFileDelimiter]
 			,TD.[InputFileHeaderFlag]
-			,TD.[InputDWTable]
-
-			--Deltas
-			,TD.[DeltaName]
+			
+			--InputEntity
+			,TD.[InputEntityName]
+			,TD.[WatermarkName]
+			
+			--Watermarks
 			,[DataFromTimestamp] = NULL
 			,[DataToTimestamp] = NULL
 			,[DataFromNumber] = NULL
@@ -50,31 +52,32 @@ AS
 		
 			,[OutputL2CuratedFolder] = 
 					REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(TD.[OutputL2CuratedFolder] COLLATE SQL_Latin1_General_CP1_CS_AS
-					,'YYYY',CAST(Year(COALESCE(TD.[LastDeltaDate],@DeltaDate,@localdate)) as varchar(4)))
-					,'MM',Right('0'+ CAST(Month(COALESCE(TD.[LastDeltaDate],@DeltaDate,@localdate)) AS varchar(2)),2))
-					,'DD',Right('0'+Cast(Day(COALESCE(TD.[LastDeltaDate],@localdate)) as varchar(2)),2))
-					,'HH',Right('0'+ CAST(DatePart(hh,COALESCE(TD.[LastDeltaDate],@DeltaDate,@localdate)) as varchar(2)),2))
-					,'MI',Right('0'+ CAST(DatePart(mi,COALESCE(TD.[LastDeltaDate],@DeltaDate,@localdate)) as varchar(2)),2))
-					,'SS',Right('0'+ CAST(DatePart(ss,COALESCE(TD.[LastDeltaDate],@DeltaDate,@localdate)) as varchar(2)),2))
+					,'YYYY',CAST(Year(COALESCE(TD.[LastWatermarkDate],@WatermarkDate,@localdate)) as varchar(4)))
+					,'MM',Right('0'+ CAST(Month(COALESCE(TD.[LastWatermarkDate],@WatermarkDate,@localdate)) AS varchar(2)),2))
+					,'DD',Right('0'+Cast(Day(COALESCE(TD.[LastWatermarkDate],@localdate)) as varchar(2)),2))
+					,'HH',Right('0'+ CAST(DatePart(hh,COALESCE(TD.[LastWatermarkDate],@WatermarkDate,@localdate)) as varchar(2)),2))
+					,'MI',Right('0'+ CAST(DatePart(mi,COALESCE(TD.[LastWatermarkDate],@WatermarkDate,@localdate)) as varchar(2)),2))
+					,'SS',Right('0'+ CAST(DatePart(ss,COALESCE(TD.[LastWatermarkDate],@WatermarkDate,@localdate)) as varchar(2)),2))
 
 			,[OutputL2CuratedFile] = 
 					REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(TD.[OutputL2CuratedFile] COLLATE SQL_Latin1_General_CP1_CS_AS
-					,'YYYY',CAST(Year(COALESCE(TD.[LastDeltaDate],@DeltaDate,@localdate)) as varchar(4)))
-					,'MM',Right('0'+ CAST(Month(COALESCE(TD.[LastDeltaDate],@DeltaDate,@localdate)) AS varchar(2)),2))
-					,'DD',Right('0'+Cast(Day(COALESCE(TD.[LastDeltaDate],@DeltaDate,@localdate)) as varchar(2)),2))
-					,'HH',Right('0'+ CAST(DatePart(hh,COALESCE(TD.[LastDeltaDate],@DeltaDate,@localdate)) as varchar(2)),2))
-					,'MI',Right('0'+ CAST(DatePart(mi,COALESCE(TD.[LastDeltaDate],@DeltaDate,@localdate)) as varchar(2)),2))
-					,'SS',Right('0'+ CAST(DatePart(ss,COALESCE(TD.[LastDeltaDate],@DeltaDate,@localdate)) as varchar(2)),2))
+					,'YYYY',CAST(Year(COALESCE(TD.[LastWatermarkDate],@WatermarkDate,@localdate)) as varchar(4)))
+					,'MM',Right('0'+ CAST(Month(COALESCE(TD.[LastWatermarkDate],@WatermarkDate,@localdate)) AS varchar(2)),2))
+					,'DD',Right('0'+Cast(Day(COALESCE(TD.[LastWatermarkDate],@WatermarkDate,@localdate)) as varchar(2)),2))
+					,'HH',Right('0'+ CAST(DatePart(hh,COALESCE(TD.[LastWatermarkDate],@WatermarkDate,@localdate)) as varchar(2)),2))
+					,'MI',Right('0'+ CAST(DatePart(mi,COALESCE(TD.[LastWatermarkDate],@WatermarkDate,@localdate)) as varchar(2)),2))
+					,'SS',Right('0'+ CAST(DatePart(ss,COALESCE(TD.[LastWatermarkDate],@WatermarkDate,@localdate)) as varchar(2)),2))
 
 			, TD.[OutputL2CuratedFileDelimiter]
 			, TD.[OutputL2CuratedFileFormat]
 			, TD.[OutputL2CuratedFileWriteMode]
 
 			--SQL
-			,TD.[OutputDWStagingTable]
+			,TD.[OutputEntityName]
+			,TD.[OutputEntityFileSystem]
+			,TD.[OutputEntityFolder]
+			,TD.[OutputEntityWriteMode]
 			,TD.[LookupColumns]
-			,TD.[OutputDWTable]
-			,TD.[OutputDWTableWriteMode]
 			
 
 		FROM
@@ -87,8 +90,6 @@ AS
 			and ID.[ActiveFlag] = 1
 			and ID.[L2TransformationReqdFlag] =1
 			and TD.[InputType] like COALESCE(@InputType,TD.[InputType])
-
 GO
-			
 
-	
+

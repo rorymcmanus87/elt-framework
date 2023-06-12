@@ -1,5 +1,6 @@
 ﻿CREATE PROCEDURE [ELT].[InsertIngestInstance]
 	@IngestID INT 
+	,@IngestInstancedID int=null
 	,@SourceFileDropFileSystem varchar(50)=null 
 	,@SourceFileDropFolder varchar(200)=null
 	,@SourceFileDropFile varchar(200)=null
@@ -24,7 +25,8 @@ DECLARE @localdate as datetime	= CONVERT(datetime,CONVERT(datetimeoffset, getdat
 	IF (@ReloadFlag=0 AND NOT EXISTS (
 										SELECT 1 
 										FROM [ELT].[IngestInstance] 
-										WHERE [DestinationRawFileSystem] = @DestinationRawFileSystem
+										WHERE [IngestInstanceID] = @IngestInstancedID
+										OR [DestinationRawFileSystem] = @DestinationRawFileSystem
 										AND [DestinationRawFolder] = @DestinationRawFolder
 										AND [DestinationRawFile] = @DestinationRawFile
 									)
@@ -71,7 +73,8 @@ DECLARE @localdate as datetime	= CONVERT(datetime,CONVERT(datetimeoffset, getdat
 	--Re-load
 	IF (@ReloadFlag=1 
 		OR EXISTS (SELECT 1 FROM [ELT].[IngestInstance] 
-					WHERE [DestinationRawFileSystem] = @DestinationRawFileSystem
+					WHERE [IngestInstanceID] = @IngestInstancedID
+						OR [DestinationRawFileSystem] = @DestinationRawFileSystem
 						AND [DestinationRawFolder] = @DestinationRawFolder
 						AND [DestinationRawFile] = @DestinationRawFile)
 		)
@@ -86,9 +89,12 @@ DECLARE @localdate as datetime	= CONVERT(datetime,CONVERT(datetimeoffset, getdat
 			,[ModifiedTimestamp] = @localdate
 			,ADFIngestPipelineRunID = @ADFPipelineRunID
 		--Unique Keys
-		WHERE [DestinationRawFileSystem] = @DestinationRawFileSystem
+		WHERE [IngestInstanceID] = @IngestInstancedID
+		OR	[DestinationRawFileSystem] = @DestinationRawFileSystem
 		AND [DestinationRawFolder] = @DestinationRawFolder
 		AND [DestinationRawFile] = @DestinationRawFile
 	END
 END
+GO
+
 

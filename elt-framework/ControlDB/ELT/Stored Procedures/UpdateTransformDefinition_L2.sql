@@ -1,16 +1,18 @@
 ﻿CREATE PROCEDURE [ELT].[UpdateTransformDefinition_L2]
 	@L2TransformID INT,
-	@LastDeltaDate Datetime2 =null,
-	@LastDeltaNumber int =null
+	@LastWatermarkDate Datetime2 =null,
+	@LastWatermarkNumber int =null
 	as
 BEGIN
 	Update [ELT].[L2TransformDefinition]
 	SET 
 		[ModifiedBy] =suser_sname(),
 		[ModifiedTimestamp]=GETDATE(),
-		[LastDeltaDate] = COALESCE(@LastDeltaDate,[LastDeltaDate],ELT.uf_GetAestDateTime()),
-		[LastDeltaNumber] = COALESCE(@LastDeltaNumber,[LastDeltaNumber])
+		[LastWatermarkDate] = COALESCE(@LastWatermarkDate,[LastWatermarkDate],ELT.uf_GetAestDateTime()),
+		[LastWatermarkNumber] = COALESCE(@LastWatermarkNumber,[LastWatermarkNumber])
 
 	WHERE [L2TransformID] = @L2TransformID
 END
 GO
+
+

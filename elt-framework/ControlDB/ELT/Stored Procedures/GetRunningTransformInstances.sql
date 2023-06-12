@@ -20,3 +20,6 @@ AS
 	SELECT (@L1Count + @L2Count) AS RunningCount
 
 RETURN
+GO
+
+

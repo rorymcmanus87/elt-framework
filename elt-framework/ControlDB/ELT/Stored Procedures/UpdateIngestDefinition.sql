@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [ELT].[UpdateIngestDefinition]
 	@IngestID INT,
-	@LastDeltaDate Datetime2=null,
-	@LastDeltaNumer int=null,
+	@LastWatermarkDate Datetime2(7)=null,
+	@LastWatermarkNumber int=null,
 	@IngestStatus varchar(20),
 	@ReloadFlag bit=0
 AS
@@ -12,38 +12,41 @@ BEGIN
 		Update 
 			[ELT].[IngestDefinition]
 		SET 
-			[LastDeltaDate] =
+			[LastWatermarkDate] =
 							CASE
-								--When Successful and the DataToDate does not move forward since LastDeltaDate, Increase LastDeltaDate by the Interval
-								WHEN @LastDeltaDate IS NOT NULL AND @ReloadFlag <> 1 AND @IngestStatus IN ('Success','ReRunSuccess') AND @LastDeltaDate = [LastDeltaDate] 
+								--When Successful and the DataToDate does not move forward since LastWatermarkDate, Increase LastWatermarkDate by the Interval
+								WHEN @LastWatermarkDate IS NOT NULL AND @ReloadFlag <> 1 AND @IngestStatus IN ('Success','ReRunSuccess') AND @LastWatermarkDate = [LastWatermarkDate] 
 									and [MaxIntervalMinutes] is NOT NULL
 									THEN 
 										CASE 
 											WHEN 
-												DateAdd(minute,[MaxIntervalMinutes],@LastDeltaDate) > ELT.[uf_GetAestDateTime]()
+												DateAdd(minute,[MaxIntervalMinutes],@LastWatermarkDate) > ELT.[uf_GetAestDateTime]()
 													THEN CONVERT(VARCHAR(30),ELT.[uf_GetAestDateTime](),120)
 											ELSE
-												DateAdd(minute,[MaxIntervalMinutes],[LastDeltaDate])
+												DateAdd(minute,[MaxIntervalMinutes],[LastWatermarkDate])
 										END
-								--Re-run delta date is later than existing delta date
-								WHEN @LastDeltaDate IS NOT NULL AND @IngestStatus IN ('Success','ReRunSuccess') AND datediff_big(ss,[LastDeltaDate],@LastDeltaDate) >= 0 
-									THEN @LastDeltaDate
-								--Re-run delta date is earlier than existing delta date
-								WHEN @LastDeltaDate IS NOT NULL AND @IngestStatus IN ('Success','ReRunSuccess')  AND datediff_big(ss,@LastDeltaDate,[LastDeltaDate]) >=0 
-									THEN [LastDeltaDate]
-								ELSE [LastDeltaDate]
+								--Re-run Watermark date is later than existing Watermark date
+								WHEN @LastWatermarkDate IS NOT NULL AND @IngestStatus IN ('Success','ReRunSuccess') AND datediff_big(ss,[LastWatermarkDate],@LastWatermarkDate) >= 0 
+									THEN @LastWatermarkDate
+								--Re-run Watermark date is earlier than existing Watermark date
+								WHEN @LastWatermarkDate IS NOT NULL AND @IngestStatus IN ('Success','ReRunSuccess')  AND datediff_big(ss,@LastWatermarkDate,[LastWatermarkDate]) >=0 
+									THEN [LastWatermarkDate]
+								ELSE [LastWatermarkDate]
 							END
-			, [LastDeltaNumber] = 
+			, [LastWatermarkNumber] = 
 							CASE
-								WHEN @LastDeltaNumer IS NOT NULL AND @IngestStatus IN ('Success','ReRunSuccess') 
-									THEN @LastDeltaNumer
-								WHEN @LastDeltaNumer IS NOT NULL AND @IngestStatus IN ('Failure','ReRunFailure') 
-									THEN [LastDeltaNumber]
-								WHEN @LastDeltaNumer IS NULL AND @ReloadFlag <> 1 AND @IngestStatus IN ('Success','ReRunSuccess')  
-									THEN ([LastDeltaNumber] + [MaxIntervalNumber])
-								ELSE [LastDeltaNumber]
+								WHEN @LastWatermarkNumber IS NOT NULL AND @IngestStatus IN ('Success','ReRunSuccess') 
+									THEN @LastWatermarkNumber
+								WHEN @LastWatermarkNumber IS NOT NULL AND @IngestStatus IN ('Failure','ReRunFailure') 
+									THEN [LastWatermarkNumber]
+								WHEN @LastWatermarkNumber IS NULL AND @ReloadFlag <> 1 AND @IngestStatus IN ('Success','ReRunSuccess')  
+									THEN ([LastWatermarkNumber] + [MaxIntervalNumber])
+								ELSE [LastWatermarkNumber]
 							END
 			,[ModifiedBy] =suser_sname()
 			, [ModifiedTimestamp]=@localdate
 	WHERE [IngestID]=@IngestID
 END
+GO
+
+

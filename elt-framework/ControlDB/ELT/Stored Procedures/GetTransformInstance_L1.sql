@@ -11,27 +11,32 @@ begin
 			L1TI.[L1TransformInstanceID]
 			, L1TI.[L1TransformID]
 			, L1TI.[IngestID]	
+			, L1TD.[MaxRetries]
 			, L1TI.[NotebookName]
 			, L1TI.[NotebookPath]
-			, L1TI.[CustomParameters]
-			, L1TI.[InputRawFileSystem]
-			, L1TI.[InputRawFileFolder]
-			, L1TI.[InputRawFile]
-			, L1TI.[InputRawFileDelimiter]
-			, L1TI.[InputFileHeaderFlag]
-			, L1TI.[OutputL1CurateFileSystem]
-			, L1TI.[OutputL1CuratedFolder]
-			, L1TI.[OutputL1CuratedFile]
-			, L1TI.[OutputL1CuratedFileDelimiter]
-			, L1TI.[OutputL1CuratedFileFormat]
-			, L1TI.[OutputL1CuratedFileWriteMode]
-			, L1TI.[OutputDWStagingTable]
-			, L1TI.[LookupColumns]
-			, L1TI.[OutputDWTable]
-			, L1TI.[OutputDWTableWriteMode]
-			, L1TI.[ReRunL1TransformFlag]
-			, L1TD.[MaxRetries]
-			, L1TD.[DeltaName]
+			
+
+			--Notebook Parameters
+			,NotebookParameters = 
+				(
+					SELECT 
+					L1TI.[L1TransformInstanceID]
+					, L1TD.[CustomParameters]
+					, L1TI.[InputRawFileSystem]
+					, L1TI.[InputRawFileFolder]
+					, L1TI.[InputRawFile]
+					, L1TI.[InputRawFileDelimiter]
+					, L1TI.[InputFileHeaderFlag]
+					, L1TI.[OutputEntityFileSystem]
+					, L1TI.[OutputEntityFolder]
+					, L1TI.[LookupColumns]
+					, L1TI.[OutputEntityName]
+					, L1TI.[OutputEntityWriteMode]
+					, L1TD.[WatermarkName]
+					, L1TI.[ReRunL1TransformFlag]
+					 FOR JSON PATH, WITHOUT_ARRAY_WRAPPER, INCLUDE_NULL_VALUES
+				)
+			
 			
 		FROM 
 			[ELT].[L1TransformInstance] as L1TI
@@ -50,3 +55,6 @@ begin
 				AND ISNULL(L1TI.RetryCount,0) <= L1TD.MaxRetries
 			ORDER BY L1TI.[L1TransformInstanceID] ASC
 END
+GO
+
+
