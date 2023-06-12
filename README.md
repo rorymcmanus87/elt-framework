@@ -15,4 +15,4 @@ The ELT Framework supports the following features:
 * Extendable.
 * Capability to integrate with Azure PaaS services like Diagnostic Logging.
 
-An extensive documentation of the ELT Framewwork is available in **[Wiki]([https://github.com/bennyaustin/elt-framework/wiki](https://github.com/rorymcmanus87/elt-framework/wiki)**
+An extensive documentation of the ELT Framewwork is available in **[Wiki]([https://github.com/bennyaustin/elt-framework/wiki](https://github.com/rorymcmanus87/elt-framework/wiki](https://github.com/rorymcmanus87/elt-framework/wiki])**
