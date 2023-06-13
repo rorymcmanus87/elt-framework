@@ -17,15 +17,19 @@ begin
 			, L2TI.[L1TransformID]
 			, L2TI.[NotebookPath]
 			, L2TI.[NotebookName]
-			, L2TI.[CustomParameters]
-			, L2TD.[InputType]
+
+			, NotebookParameters = 
+			(
+			SELECT
+			L2TI.L2TransformInstanceID
+			,L2TD.[CustomParameters]
 			, L2TI.[InputFileSystem]
 			, L2TI.[InputFileFolder]
 			, L2TI.[InputFile]
 			, L2TI.[InputFileDelimiter]
 			, L2TI.[InputFileHeaderFlag]
-			, L2TI.[InputDWTable]
-			, L2TI.[DeltaName]
+			, L2TI.[InputEntityName]
+			, L2TI.[WatermarkName]
 			, L2TI.[DataFromTimestamp]
 			, L2TI.[DataToTimestamp]
 			, L2TI.[DataFromNumber]
@@ -36,10 +40,19 @@ begin
 			, L2TI.[OutputL2CuratedFileDelimiter]
 			, L2TI.[OutputL2CuratedFileFormat]
 			, L2TI.[OutputL2CuratedFileWriteMode]
-			, L2TI.[OutputDWStagingTable]
+			, L2TI.[OutputEntityName]
+			, L2TI.[OutputEntityFileSystem]
+			, L2TI.[OutputEntityFolder]
 			, L2TI.[LookupColumns]
-			, L2TI.[OutputDWTable]
-			, L2TI.[OutputDWTableWriteMode]
+			, L2TI.[OutputEntityWriteMode]
+			, L2TI.[ReRunL2TransformFlag]
+			 FOR JSON PATH, WITHOUT_ARRAY_WRAPPER, INCLUDE_NULL_VALUES
+			)
+
+			, L2TI.[DataFromTimestamp]
+			, L2TI.[DataToTimestamp]
+			, L2TI.[DataFromNumber]
+			, L2TI.[DataToNumber]
 			, L2TI.[ReRunL2TransformFlag]
 			, L2TD.[MaxRetries]
 	
@@ -62,3 +75,6 @@ begin
 				AND  L2TI.[L2TransformID]= (CASE WHEN @L2TransformID=0 then  L2TI.[L2TransformID] ELSE  @L2TransformID END)
 			ORDER BY L2TD.RunSequence ASC, L2TI.[L2TransformInstanceID] ASC
 END
+GO
+
+

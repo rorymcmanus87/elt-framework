@@ -92,19 +92,17 @@
     <Build Include="ELT\Constraints\CC_IngestDefinition_SourceStructure.sql" />
     <Build Include="ELT\Constraints\CC_IngestInstance_IngestStatus.sql" />
     <Build Include="ELT\Constraints\CC_L1TransformDefinition_CustomParameters.sql" />
-    <Build Include="ELT\Constraints\CC_L1TransformDefinition_OutputDWTableWriteMode.sql" />
-    <Build Include="ELT\Constraints\CC_L1TransformDefinition_OutputL1CuratedFileWriteMode.sql" />
+    <Build Include="ELT\Constraints\CC_L1TransformDefinition_OutputEntityWriteMode.sql" />
     <Build Include="ELT\Constraints\CC_L1TransformInstance_L1TransformStatus.sql" />
-    <Build Include="ELT\Constraints\CC_L1TransformInstance_OutputDWTableWriteMode.sql" />
-    <Build Include="ELT\Constraints\CC_L1TransformInstance_OutputL1CuratedFileWriteMode.sql" />
+    <Build Include="ELT\Constraints\CC_L1TransformInstance_OutputEntityWriteMode.sql" />
     <Build Include="ELT\Constraints\CC_L2TransformDefinition_CustomParameters.sql" />
     <Build Include="ELT\Constraints\CC_L2TransformDefinition_InputType.sql" />
     <Build Include="ELT\Constraints\CC_L2TransformDefinition_MaxIntervalMinutes.sql" />
     <Build Include="ELT\Constraints\CC_L2TransformDefinition_MaxIntervalNumber.sql" />
-    <Build Include="ELT\Constraints\CC_L2TransformDefinition_OutputDWTableWriteMode.sql" />
+    <Build Include="ELT\Constraints\CC_L2TransformDefinition_OutputEntityWriteMode.sql" />
     <Build Include="ELT\Constraints\CC_L2TransformDefinition_OutputL2CuratedFileWriteMode.sql" />
     <Build Include="ELT\Constraints\CC_L2TransformInstance_L2TransformStatus.sql" />
-    <Build Include="ELT\Constraints\CC_L2TransformInstance_OutputDWTableWriteMode.sql" />
+    <Build Include="ELT\Constraints\CC_L2TransformInstance_OutputEntityWriteMode.sql" />
     <Build Include="ELT\Constraints\CC_L2TransformInstance_OutputL2CuratedFileWriteMode.sql" />
     <Build Include="ELT\Constraints\DC_IngestDefinition_CreatedBy.sql" />
     <Build Include="ELT\Constraints\DC_IngestDefinition_CreatedTimestamp.sql" />
@@ -125,7 +123,6 @@
     <Build Include="ELT\Constraints\DC_L2TransformDefinition_MaxRetries.sql" />
     <Build Include="ELT\Constraints\DC_L2TransformDefinition_ModifiedBy.sql" />
     <Build Include="ELT\Constraints\DC_L2TransformDefinition_ModifiedTimestamp.sql" />
-    <Build Include="ELT\Constraints\PK_L1TransformInstance.sql" />
     <Build Include="ELT\Indexes\UI_IngestDefinition.sql" />
     <Build Include="ELT\Indexes\UI_IngestInstance.sql" />
     <Build Include="ELT\Indexes\UI_L1TransformDefinition.sql" />
@@ -171,6 +168,21 @@
     <None Include="Post Deployment Script\datasources\RestAPI\L1TransformDefinition\L1T_AzureRestAPI.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Build Include="ELT\Tables\ColumnMapping.sql" />
+    <Build Include="ELT\Constraints\DC_ColumnMapping_CreatedBy.sql" />
+    <Build Include="ELT\Constraints\DC_ColumnMapping_CreatedTimestamp.sql" />
+    <Build Include="ELT\Constraints\DC_ColumnMapping_ModifiedBy.sql" />
+    <Build Include="ELT\Constraints\DC_ColumnMapping_ModifiedTimestamp.sql" />
+    <Build Include="ELT\Keys\FK_ColumnMapping_IngestID.sql" />
+    <Build Include="ELT\Keys\FK_ColumnMapping_L1TransformID.sql" />
+    <Build Include="ELT\Keys\FK_ColumnMapping_L2TransformID.sql" />
+    <Build Include="ELT\Keys\PK_ColumnMapping.sql" />
+    <Build Include="ELT\Indexes\UI_ColumnMapping.sql" />
+    <Build Include="ELT\Functions\uf_GetADXQuery.sql" />
+    <Build Include="ELT\Functions\uf_GetColumnList.sql" />
+    <Build Include="ELT\Functions\uf_GetSalesforceQuery.sql" />
+    <Build Include="ELT\Constraints\CC_IngestDefinition_DestinationRawFolder.sql" />
+    <Build Include="ELT\Keys\PK_L1TransformInstance.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Pre Deployment Script\DBRoles.PreDeployment.sql" />

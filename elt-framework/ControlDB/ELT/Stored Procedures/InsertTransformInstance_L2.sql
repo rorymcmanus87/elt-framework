@@ -8,42 +8,41 @@
 	@NotebookName varchar(100) = null,
 	@NotebookPath varchar(200) = null,
 
-	--Custom
-	@CustomParameters varchar(max) = null,
-
 	--Input File
 	@InputFileSystem varchar(50) = null,
     @InputFileFolder varchar(200) = null,
     @InputFile varchar(200) = null,
     @InputFileDelimiter char(1) = null,
 	@InputFileHeaderFlag bit = null,
-	@InputDWTable varchar(200) = null,
+	
 
-	--Delta
-	@DeltaName varchar(50) = null,
+	--InputEntity
+	@InputEntityName varchar(200) = null,
+	
+	--Watermark
+	@WatermarkName varchar(50) = null,
 	@DataFromTimestamp Datetime2 =null,
 	@DataToTimestamp Datetime2 =null,
 	@DataFromNumber int =null,
 	@DataToNumber int =null,
-	@LastDeltaDate datetime = null,
-	@LastDeltaNumber int = null,
-
+	@LastWatermarkDate datetime = null,
+	@LastWatermarkNumber int = null,
 
 	--Curated File 
-	@OutputL2CurateFileSystem varchar(50),
-    @OutputL2CuratedFolder varchar(200),
-    @OutputL2CuratedFile varchar(200),
-    @OutputL2CuratedFileDelimiter char(1) = null,
-    @OutputL2CuratedFileFormat varchar(10) = null,
-    @OutputL2CuratedFileWriteMode varchar(20) = null,
+	@OutputL2CurateFileSystem varchar(50) = null,
+    @OutputL2CuratedFolder varchar(200) = null,
+	@OutputL2CuratedFile varchar(200) = null,
+	@OutputL2CuratedFileDelimiter char(1) = null,
+	@OutputL2CuratedFileFormat  varchar(10) = null,
+	@OutputL2CuratedFileWriteMode varchar(2) = null,
 
-	--SQL
-	@OutputDWStagingTable varchar(200) = null,
+	--Delta
+	@OutputEntityName varchar(200) = null,
+	@OutputEntityFileSystem varchar(50) = null,
+	@OutputEntityFolder varchar(200) = null,
 	@LookupColumns varchar(4000) = null,	
-    @OutputDWTable varchar(200) = null,
-    @OutputDWTableWriteMode varchar(20) = null,
+    @OutputEntityWriteMode varchar(20) = null,
 	
-
 	--ADF Pipeline IDs
 	@IngestADFPipelineRunID uniqueidentifier = null,
 	@L1TransformADFPipelineRunID  uniqueidentifier = null,
@@ -82,24 +81,24 @@ DECLARE @localdate as datetime	= CONVERT(datetime,CONVERT(datetimeoffset, getdat
 				,[L1TransformID]
 				,[NotebookPath]
 				,[NotebookName]
-				,[CustomParameters]
 				,[InputFileSystem]
 				,[InputFileFolder]
 				,[InputFile]
 				,[InputFileDelimiter]
 				,[InputFileHeaderFlag]
-				,[InputDWTable]
-				,[DeltaName]
+				,[InputEntityName]
+				,[WatermarkName]
 				,[OutputL2CurateFileSystem]
 				,[OutputL2CuratedFolder]
 				,[OutputL2CuratedFile]
 				,[OutputL2CuratedFileDelimiter]
 				,[OutputL2CuratedFileFormat]
 				,[OutputL2CuratedFileWriteMode]
-				,[OutputDWStagingTable]
+				,[OutputEntityName]
+				,[OutputEntityFileSystem]
+				,[OutputEntityFolder]
+				,[OutputEntityWriteMode]
 				,[LookupColumns]
-				,[OutputDWTable]
-				,[OutputDWTableWriteMode]
 				,[RetryCount]
 				,[ActiveFlag]
 				,[IngestADFPipelineRunID]
@@ -116,24 +115,24 @@ DECLARE @localdate as datetime	= CONVERT(datetime,CONVERT(datetimeoffset, getdat
 				@L1TransformID,
 				@NotebookPath,
 				@NotebookName,
-				@CustomParameters,
 				@InputFileSystem,
 				@InputFileFolder,
 				@InputFile,
 				@InputFileDelimiter,
 				@InputFileHeaderFlag,
-				@InputDWTable,
-				@DeltaName,
+				@InputEntityName,
+				@WatermarkName,
 				@OutputL2CurateFileSystem,
 				@OutputL2CuratedFolder,
 				@OutputL2CuratedFile,
 				@OutputL2CuratedFileDelimiter,
 				@OutputL2CuratedFileFormat,
 				@OutputL2CuratedFileWriteMode,
-				@OutputDWStagingTable,
+				@OutputEntityName,
+				@OutputEntityFileSystem,
+				@OutputEntityFolder,
+				@OutputEntityWriteMode,
 				@LookupColumns,
-				@OutputDWTable,
-				@OutputDWTableWriteMode,
 				0,
 				1,
 				@IngestADFPipelineRunID,
@@ -167,8 +166,10 @@ DECLARE @localdate as datetime	= CONVERT(datetime,CONVERT(datetimeoffset, getdat
 			--Check does curated file record already exist
 			AND OutputL2CurateFileSystem = @OutputL2CurateFileSystem
 			AND OutputL2CuratedFolder = @OutputL2CuratedFolder
-			AND OutputL2CuratedFile = @OutputL2CuratedFile
 			AND (ActiveFlag = 0 AND ISNULL(RetryCount,0)  >= @MaxRetries)
 				
 		END
 END
+GO
+
+

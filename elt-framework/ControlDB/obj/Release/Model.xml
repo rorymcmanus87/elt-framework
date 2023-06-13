@@ -12,7 +12,7 @@
 		</CustomData>
 		<CustomData Category="Reference" Type="Assembly">
 			<Metadata Name="LogicalName" Value="ControlDB.dll" />
-			<Metadata Name="FileName" Value="C:\GIT REPOS\ELT-FRAMEWORK\ELT-FRAMEWORK\CONTROLDB\OBJ\RELEASE\CONTROLDB.DLL" />
+			<Metadata Name="FileName" Value="C:\USERS\RORYM\SOURCE\REPOS\RORYMCMANUS87\ELT-FRAMEWORK\ELT-FRAMEWORK\CONTROLDB\OBJ\RELEASE\CONTROLDB.DLL" />
 			<Metadata Name="AssemblyName" Value="ControlDB" />
 			<Metadata Name="PermissionSet" Value="SAFE" />
 			<Metadata Name="Owner" Value="" />
@@ -20,7 +20,7 @@
 			<Metadata Name="IsVisible" Value="True" />
 			<Metadata Name="IsModelAware" Value="True" />
 			<Metadata Name="SkipCreationIfEmpty" Value="True" />
-			<Metadata Name="AssemblySymbolsName" Value="C:\Git Repos\elt-framework\elt-framework\ControlDB\obj\Release\ControlDB.pdb" />
+			<Metadata Name="AssemblySymbolsName" Value="C:\Users\rorym\Source\Repos\rorymcmanus87\elt-framework\elt-framework\ControlDB\obj\Release\ControlDB.pdb" />
 		</CustomData>
 		<CustomData Category="SqlCmdVariables" Type="SqlCmdVariable" />
 	</Header>
@@ -56,6 +56,21 @@
 			<Relationship Name="CheckExpressionDependencies">
 				<Entry>
 					<References Name="[ELT].[IngestDefinition].[DataMapping]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[ELT].[IngestDefinition]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlCheckConstraint" Name="[ELT].[CC_IngestDefinition_DestinationRawFolder]">
+			<Property Name="CheckExpressionScript">
+				<Value><![CDATA[(left([DestinationRawFolder],charindex('YYYY/MM',[DestinationRawFolder])-(1))=(lower(left([DestinationRawFolder],charindex('YYYY/MM',[DestinationRawFolder])-(1)))) collate SQL_Latin1_General_CP1_CS_AS)]]></Value>
+			</Property>
+			<Relationship Name="CheckExpressionDependencies">
+				<Entry>
+					<References Name="[ELT].[IngestDefinition].[DestinationRawFolder]" />
 				</Entry>
 			</Relationship>
 			<Relationship Name="DefiningTable">
@@ -139,28 +154,13 @@
 				</Entry>
 			</Relationship>
 		</Element>
-		<Element Type="SqlCheckConstraint" Name="[ELT].[CC_L1TransformDefinition_OutputDWTableWriteMode]">
+		<Element Type="SqlCheckConstraint" Name="[ELT].[CC_L1TransformDefinition_OutputEntityWriteMode]">
 			<Property Name="CheckExpressionScript">
-				<Value><![CDATA[[OutputDWTableWriteMode]='append' OR [OutputDWTableWriteMode]='overwrite' OR [OutputDWTableWriteMode]='error' OR [OutputDWTableWriteMode]='errorifexists' OR [OutputDWTableWriteMode]='ignore']]></Value>
+				<Value><![CDATA[[OutputEntityWriteMode] ='append' OR [OutputEntityWriteMode]='overwrite' OR [OutputEntityWriteMode]='error' OR [OutputEntityWriteMode]='errorifexists' OR [OutputEntityWriteMode]='ignore']]></Value>
 			</Property>
 			<Relationship Name="CheckExpressionDependencies">
 				<Entry>
-					<References Name="[ELT].[L1TransformDefinition].[OutputDWTableWriteMode]" />
-				</Entry>
-			</Relationship>
-			<Relationship Name="DefiningTable">
-				<Entry>
-					<References Name="[ELT].[L1TransformDefinition]" />
-				</Entry>
-			</Relationship>
-		</Element>
-		<Element Type="SqlCheckConstraint" Name="[ELT].[CC_L1TransformDefinition_OutputL1CuratedFileWriteMode]">
-			<Property Name="CheckExpressionScript">
-				<Value><![CDATA[[OutputL1CuratedFileWriteMode] ='append' OR [OutputL1CuratedFileWriteMode] ='overwrite' OR [OutputL1CuratedFileWriteMode] ='ignore'  OR [OutputL1CuratedFileWriteMode] = 'error' OR [OutputL1CuratedFileWriteMode]='errorifexists']]></Value>
-			</Property>
-			<Relationship Name="CheckExpressionDependencies">
-				<Entry>
-					<References Name="[ELT].[L1TransformDefinition].[OutputL1CuratedFileWriteMode]" />
+					<References Name="[ELT].[L1TransformDefinition].[OutputEntityWriteMode]" />
 				</Entry>
 			</Relationship>
 			<Relationship Name="DefiningTable">
@@ -184,28 +184,13 @@
 				</Entry>
 			</Relationship>
 		</Element>
-		<Element Type="SqlCheckConstraint" Name="[ELT].[CC_L1TransformInstance_OutputDWTableWriteMode]">
+		<Element Type="SqlCheckConstraint" Name="[ELT].[CC_L1TransformInstance_OutputEntityWriteMode]">
 			<Property Name="CheckExpressionScript">
-				<Value><![CDATA[[OutputDWTableWriteMode]='append' OR [OutputDWTableWriteMode]='overwrite' OR [OutputDWTableWriteMode]='error' OR [OutputDWTableWriteMode]='errorifexists' OR [OutputDWTableWriteMode]='ignore']]></Value>
+				<Value><![CDATA[[OutputEntityWriteMode]='append' OR [OutputEntityWriteMode]='overwrite' OR [OutputEntityWriteMode]='error' OR [OutputEntityWriteMode]='errorifexists' OR [OutputEntityWriteMode]='ignore']]></Value>
 			</Property>
 			<Relationship Name="CheckExpressionDependencies">
 				<Entry>
-					<References Name="[ELT].[L1TransformInstance].[OutputDWTableWriteMode]" />
-				</Entry>
-			</Relationship>
-			<Relationship Name="DefiningTable">
-				<Entry>
-					<References Name="[ELT].[L1TransformInstance]" />
-				</Entry>
-			</Relationship>
-		</Element>
-		<Element Type="SqlCheckConstraint" Name="[ELT].[CC_L1TransformInstance_OutputL1CuratedFileWriteMode]">
-			<Property Name="CheckExpressionScript">
-				<Value><![CDATA[[OutputL1CuratedFileWriteMode] ='append' OR [OutputL1CuratedFileWriteMode] ='overwrite' OR [OutputL1CuratedFileWriteMode] ='ignore'  OR [OutputL1CuratedFileWriteMode] = 'error' OR [OutputL1CuratedFileWriteMode]='errorifexists']]></Value>
-			</Property>
-			<Relationship Name="CheckExpressionDependencies">
-				<Entry>
-					<References Name="[ELT].[L1TransformInstance].[OutputL1CuratedFileWriteMode]" />
+					<References Name="[ELT].[L1TransformInstance].[OutputEntityWriteMode]" />
 				</Entry>
 			</Relationship>
 			<Relationship Name="DefiningTable">
@@ -231,7 +216,7 @@
 		</Element>
 		<Element Type="SqlCheckConstraint" Name="[ELT].[CC_L2TransformDefinition_InputType]">
 			<Property Name="CheckExpressionScript">
-				<Value><![CDATA[[InputType] ='Raw' OR [InputType] ='Curated' OR [InputType] ='Datawarehouse']]></Value>
+				<Value><![CDATA[[InputType]='Raw' OR [InputType]='DeltaLake']]></Value>
 			</Property>
 			<Relationship Name="CheckExpressionDependencies">
 				<Entry>
@@ -274,13 +259,13 @@
 				</Entry>
 			</Relationship>
 		</Element>
-		<Element Type="SqlCheckConstraint" Name="[ELT].[CC_L2TransformDefinition_OutputDWTableWriteMode]">
+		<Element Type="SqlCheckConstraint" Name="[ELT].[CC_L2TransformDefinition_OutputEntityWriteMode]">
 			<Property Name="CheckExpressionScript">
-				<Value><![CDATA[[OutputDWTableWriteMode]='append' OR [OutputDWTableWriteMode]='overwrite' OR [OutputDWTableWriteMode]='ignore' OR [OutputDWTableWriteMode]='error' OR [OutputDWTableWriteMode]='errorifexists']]></Value>
+				<Value><![CDATA[[OutputEntityWriteMode]='append' OR [OutputEntityWriteMode]='overwrite' OR [OutputEntityWriteMode]='ignore' OR [OutputEntityWriteMode]='error' OR [OutputEntityWriteMode]='errorifexists']]></Value>
 			</Property>
 			<Relationship Name="CheckExpressionDependencies">
 				<Entry>
-					<References Name="[ELT].[L2TransformDefinition].[OutputDWTableWriteMode]" />
+					<References Name="[ELT].[L2TransformDefinition].[OutputEntityWriteMode]" />
 				</Entry>
 			</Relationship>
 			<Relationship Name="DefiningTable">
@@ -319,13 +304,13 @@
 				</Entry>
 			</Relationship>
 		</Element>
-		<Element Type="SqlCheckConstraint" Name="[ELT].[CC_L2TransformInstance_OutputDWTableWriteMode]">
+		<Element Type="SqlCheckConstraint" Name="[ELT].[CC_L2TransformInstance_OutputEntityWriteMode]">
 			<Property Name="CheckExpressionScript">
-				<Value><![CDATA[[OutputDWTableWriteMode]='append' OR [OutputDWTableWriteMode]= 'overwrite' OR [OutputDWTableWriteMode]= 'ignore' OR [OutputDWTableWriteMode]= 'error' OR [OutputDWTableWriteMode]= 'errorifexists']]></Value>
+				<Value><![CDATA[[OutputEntityWriteMode]='append' OR [OutputEntityWriteMode]= 'overwrite' OR [OutputEntityWriteMode]= 'ignore' OR [OutputEntityWriteMode]= 'error' OR [OutputEntityWriteMode]= 'errorifexists']]></Value>
 			</Property>
 			<Relationship Name="CheckExpressionDependencies">
 				<Entry>
-					<References Name="[ELT].[L2TransformInstance].[OutputDWTableWriteMode]" />
+					<References Name="[ELT].[L2TransformInstance].[OutputEntityWriteMode]" />
 				</Entry>
 			</Relationship>
 			<Relationship Name="DefiningTable">
@@ -346,6 +331,354 @@
 			<Relationship Name="DefiningTable">
 				<Entry>
 					<References Name="[ELT].[L2TransformInstance]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlTable" Name="[ELT].[ColumnMapping]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[ELT].[ColumnMapping].[MappingID]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[ELT].[ColumnMapping].[IngestID]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[ELT].[ColumnMapping].[L1TransformID]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[ELT].[ColumnMapping].[L2TransformID]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[ELT].[ColumnMapping].[SourceName]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="128" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[ELT].[ColumnMapping].[TargetName]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="128" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[ELT].[ColumnMapping].[Description]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="250" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[ELT].[ColumnMapping].[TargetOrdinalPosition]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[ELT].[ColumnMapping].[ActiveFlag]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bit]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[ELT].[ColumnMapping].[CreatedBy]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[ELT].[ColumnMapping].[CreatedTimestamp]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[ELT].[ColumnMapping].[ModifiedBy]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[ELT].[ColumnMapping].[ModifiedTimestamp]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[ELT]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlIndex" Name="[ELT].[ColumnMapping].[UI_ColumnMapping]">
+			<Property Name="IsUnique" Value="True" />
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[ELT].[ColumnMapping].[IngestID]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[ELT].[ColumnMapping].[L1TransformID]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[ELT].[ColumnMapping].[L2TransformID]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[ELT].[ColumnMapping].[SourceName]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[ELT].[ColumnMapping].[TargetName]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="IndexedObject">
+				<Entry>
+					<References Name="[ELT].[ColumnMapping]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlDefaultConstraint" Name="[ELT].[DC_ColumnMapping_CreatedBy]">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[(suser_sname())]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[ELT].[ColumnMapping]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[CreatedBy]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlDefaultConstraint" Name="[ELT].[DC_ColumnMapping_CreatedTimestamp]">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[(CONVERT([datetime],(CONVERT([datetimeoffset],getdate()) AT TIME ZONE 'AUS Eastern Standard Time')))]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[ELT].[ColumnMapping]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ExpressionDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[datetime]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[datetimeoffset]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[CreatedTimestamp]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlDefaultConstraint" Name="[ELT].[DC_ColumnMapping_ModifiedBy]">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[(suser_sname())]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[ELT].[ColumnMapping]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[ModifiedBy]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlDefaultConstraint" Name="[ELT].[DC_ColumnMapping_ModifiedTimestamp]">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[(CONVERT([datetime],(CONVERT([datetimeoffset],getdate()) AT TIME ZONE 'AUS Eastern Standard Time')))]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[ELT].[ColumnMapping]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ExpressionDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[datetime]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[datetimeoffset]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[ModifiedTimestamp]" />
 				</Entry>
 			</Relationship>
 		</Element>
@@ -682,6 +1015,72 @@
 				</Entry>
 			</Relationship>
 		</Element>
+		<Element Type="SqlForeignKeyConstraint" Name="[ELT].[FK_ColumnMapping_IngestID]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[IngestID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[ELT].[ColumnMapping]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[ELT].[IngestDefinition].[IngestID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[ELT].[IngestDefinition]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlForeignKeyConstraint" Name="[ELT].[FK_ColumnMapping_L1TransformID]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[L1TransformID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[ELT].[ColumnMapping]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[ELT].[L1TransformDefinition].[L1TransformID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[ELT].[L1TransformDefinition]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlForeignKeyConstraint" Name="[ELT].[FK_ColumnMapping_L2TransformID]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[L2TransformID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[ELT].[ColumnMapping]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[ELT].[L2TransformDefinition].[L2TransformID]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[ELT].[L2TransformDefinition]" />
+				</Entry>
+			</Relationship>
+		</Element>
 		<Element Type="SqlForeignKeyConstraint" Name="[ELT].[FK_IngestInstance_IngestID]">
 			<Relationship Name="Columns">
 				<Entry>
@@ -865,6 +1264,8 @@ BEGIN
 	
 		DECLARE @localdate as datetime	= CONVERT(datetime,CONVERT(datetimeoffset, getdate()) at time zone 'AUS Eastern Standard Time');
 
+		
+
 with 
 	cte
 as
@@ -876,31 +1277,31 @@ as
 				,[StreamName]
 				,[Backend]
 				,[EntityName]
-				,[DeltaName]
+				,[WatermarkName]
 				
-				--Delta Dates
-				,[LastDeltaDate]
+				--Watermark Dates
+				,[LastWatermarkDate]
 				,[DataFromTimestamp] = 
 								CASE 
-									WHEN ([EntityName] IS NOT NULL AND [LastDeltaDate] IS NOT NULL) THEN [LastDeltaDate]
+									WHEN ([EntityName] IS NOT NULL AND [LastWatermarkDate] IS NOT NULL) THEN [LastWatermarkDate]
 									ELSE CAST('1900-01-01' AS DateTime)
 								END
 				,[DataToTimestamp] = 
 							CASE 
-								WHEN ([EntityName] IS NOT NULL AND [LastDeltaDate] IS NOT NULL AND [MaxIntervalMinutes] IS NOT NULL AND datediff_big(minute,[LastDeltaDate],@localdate) > [MaxIntervalMinutes]) THEN DateAdd(minute,[MaxIntervalMinutes],[LastDeltaDate])
-								WHEN ([EntityName] IS NOT NULL AND [LastDeltaDate] IS NOT NULL AND [MaxIntervalMinutes] IS NOT NULL AND datediff_big(minute,[LastDeltaDate],@localdate) <= [MaxIntervalMinutes]) THEN CONVERT(VARCHAR(30),@localdate,120)
-								ELSE CONVERT(VARCHAR(30),@localdate,120) 
+								WHEN ([EntityName] IS NOT NULL AND [LastWatermarkDate] IS NOT NULL AND [MaxIntervalMinutes] IS NOT NULL AND datediff_big(minute,[LastWatermarkDate],@localdate) > [MaxIntervalMinutes]) THEN DateAdd(minute,[MaxIntervalMinutes],[LastWatermarkDate])
+								WHEN ([EntityName] IS NOT NULL AND [LastWatermarkDate] IS NOT NULL AND [MaxIntervalMinutes] IS NOT NULL AND datediff_big(minute,[LastWatermarkDate],@localdate) <= [MaxIntervalMinutes]) THEN CONVERT(VARCHAR(23),@localdate,120)
+								ELSE CONVERT(VARCHAR(23),@localdate,120) 
 							END
 
-				--Delta Numbers
-				,[LastDeltaNumber]
+				--Watermark Numbers
+				,[LastWatermarkNumber]
 				,[DataFromNumber] = 
 							CASE 
-								WHEN ([EntityName] IS NOT NULL AND [LastDeltaNumber] IS NOT NULL) THEN [LastDeltaNumber]
+								WHEN ([EntityName] IS NOT NULL AND [LastWatermarkNumber] IS NOT NULL) THEN [LastWatermarkNumber]
 					  END
 				,[DataToNumber] = 
 								CASE 
-									WHEN ([EntityName] IS NOT NULL AND [LastDeltaNumber] IS NOT NULL) THEN ([LastDeltaNumber] + [MaxIntervalNumber])
+									WHEN ([EntityName] IS NOT NULL AND [LastWatermarkNumber] IS NOT NULL) THEN ([LastWatermarkNumber] + [MaxIntervalNumber])
 					   END
 
 				,[DataFormat]
@@ -919,78 +1320,92 @@ as
 			--Derived Fields
 				,[DestinationRawFolder] = 
 					REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE([DestinationRawFolder] COLLATE SQL_Latin1_General_CP1_CS_AS
-					,'YYYY',CAST(Year(COALESCE([LastDeltaDate],@localdate)) as varchar(4)))
-					,'MM',Right('0'+ CAST(Month(COALESCE([LastDeltaDate],@localdate)) AS varchar(2)),2))
-					,'DD',Right('0'+Cast(Day(COALESCE([LastDeltaDate],@localdate)) as varchar(2)),2))
-					,'HH',Right('0'+ CAST(DatePart(hh,COALESCE([LastDeltaDate],@localdate)) as varchar(2)),2))
-					,'MI',Right('0'+ CAST(DatePart(mi,COALESCE([LastDeltaDate],@localdate)) as varchar(2)),2))
-					,'SS',Right('0'+ CAST(DatePart(ss,COALESCE([LastDeltaDate],@localdate)) as varchar(2)),2))
+					,'YYYY',CAST(Year(COALESCE([LastWatermarkDate],@localdate)) as varchar(4)))
+					,'MM',Right('0'+ CAST(Month(COALESCE([LastWatermarkDate],@localdate)) AS varchar(2)),2))
+					,'DD',Right('0'+Cast(Day(COALESCE([LastWatermarkDate],@localdate)) as varchar(2)),2))
+					,'HH',Right('0'+ CAST(DatePart(hh,COALESCE([LastWatermarkDate],@localdate)) as varchar(2)),2))
+					,'MI',Right('0'+ CAST(DatePart(mi,COALESCE([LastWatermarkDate],@localdate)) as varchar(2)),2))
+					,'SS',Right('0'+ CAST(DatePart(ss,COALESCE([LastWatermarkDate],@localdate)) as varchar(2)),2))
 			
 				,[DestinationRawFile] = 
 					REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE([DestinationRawFile] COLLATE SQL_Latin1_General_CP1_CS_AS
-					,'YYYY',CAST(Year(COALESCE([LastDeltaDate],@localdate)) AS varchar(4)))
-					,'MM',Right('0'+ CAST(Month(COALESCE([LastDeltaDate],@localdate)) AS varchar(2)),2))
-					,'DD',Right('0'+Cast(Day(COALESCE([LastDeltaDate],@localdate)) as varchar(2)),2))
-					,'HH',Right('0'+ CAST(DatePart(hh,COALESCE([LastDeltaDate],@localdate)) AS varchar(2)),2))
-					,'MI',Right('0'+ CAST(DatePart(mi,COALESCE([LastDeltaDate],@localdate)) AS varchar(2)),2))
-					,'SS',Right('0'+ CAST(DatePart(ss,COALESCE([LastDeltaDate],@localdate)) AS varchar(2)),2))			
+					,'YYYY',CAST(Year(COALESCE([LastWatermarkDate],@localdate)) AS varchar(4)))
+					,'MM',Right('0'+ CAST(Month(COALESCE([LastWatermarkDate],@localdate)) AS varchar(2)),2))
+					,'DD',Right('0'+Cast(Day(COALESCE([LastWatermarkDate],@localdate)) as varchar(2)),2))
+					,'HH',Right('0'+ CAST(DatePart(hh,COALESCE([LastWatermarkDate],@localdate)) AS varchar(2)),2))
+					,'MI',Right('0'+ CAST(DatePart(mi,COALESCE([LastWatermarkDate],@localdate)) AS varchar(2)),2))
+					,'SS',Right('0'+ CAST(DatePart(ss,COALESCE([LastWatermarkDate],@localdate)) AS varchar(2)),2))			
 
 
 			--Query
-				,SourceSQL = 
+				,SourceQuery = 
 					CASE
 					-- Customized for simple Purview ATLAS API
 					   WHEN Backend IN ('ATLAS REST API','AZURE REST API') THEN EntityName 
 
-					 --DEFAULT ANSI SQL for Delta Table
-						WHEN [EntityName] IS NOT NULL AND [DeltaName] IS NOT NULL AND [LastDeltaDate] IS NOT NULL
+					-- Salesforce
+					   WHEN Backend IN ('Salesforce - Cloud') THEN [ELT].[uf_GetSalesforceQuery]('SourceQuery', IngestID, EntityName, WatermarkName, LastWatermarkDate, NULL, MaxIntervalMinutes)
+
+					--ADX
+					 WHEN Backend = 'ADX - Database' THEN [ELT].[uf_GetADXQuery]('SourceQuery', IngestID, EntityName, WatermarkName, LastWatermarkDate, NULL, MaxIntervalMinutes)
+
+					 --DEFAULT ANSI SQL for Watermark Table
+						WHEN [EntityName] IS NOT NULL AND [WatermarkName] IS NOT NULL AND [LastWatermarkDate] IS NOT NULL
 							THEN 
 								CASE 
-									WHEN datediff_big(minute,[LastDeltaDate],@localdate) > [MaxIntervalMinutes]
+									WHEN datediff_big(minute,[LastWatermarkDate],@localdate) > [MaxIntervalMinutes]
 										THEN 
 											'SELECT * FROM ' + [EntityName] + ' WHERE ' 
-											+ [DeltaName] + ' > ' + ''''+CONVERT(VARCHAR(30),[LastDeltaDate],121) +''''+ ' AND ' + [DeltaName] + '<=' +  ''''+ CONVERT(VARCHAR(30), DATEADD(minute,[MaxIntervalMinutes],[LastDeltaDate]),121) +''''
+											+ [WatermarkName] + ' > ' + ''''+CONVERT(VARCHAR(23),[LastWatermarkDate],121) +''''+ ' AND ' + [WatermarkName] + '<=' +  ''''+ CONVERT(VARCHAR(23), DATEADD(minute,[MaxIntervalMinutes],[LastWatermarkDate]),121) +''''
 									ELSE 
 										'SELECT * FROM ' + [EntityName] + ' WHERE ' 
-										+ [DeltaName] + ' > ' + ''''+ CONVERT(VARCHAR(30),[LastDeltaDate],121) +''''+ ' AND ' + [DeltaName] + '<='  + ''''+ CONVERT(VARCHAR(30), @localdate,120) +''''
+										+ [WatermarkName] + ' > ' + ''''+ CONVERT(VARCHAR(23),[LastWatermarkDate],121) +''''+ ' AND ' + [WatermarkName] + '<='  + ''''+ CONVERT(VARCHAR(23), @localdate,120) +''''
 								END
 					 --DEFAULT ANSI SQL for Full Table
-						WHEN [EntityName] IS NOT NULL AND [DeltaName] IS NULL
+						WHEN [EntityName] IS NOT NULL AND [WatermarkName] IS NULL
 							THEN 
 								'SELECT * FROM ' + [EntityName]
 					--Running Number
-						WHEN [EntityName] IS NOT NULL AND [DeltaName] IS NOT NULL AND [LastDeltaNumber] IS NOT NULL
+						WHEN [EntityName] IS NOT NULL AND [WatermarkName] IS NOT NULL AND [LastWatermarkNumber] IS NOT NULL
 							THEN 'SELECT * FROM ' + [EntityName] + ' WHERE ' 
-												+ [DeltaName] + ' > ' + ''''+CONVERT(VARCHAR,[LastDeltaNumber]) +'''' + [DeltaName] + ' <= ' + ''''+CONVERT(VARCHAR,([LastDeltaNumber] + [MaxIntervalNumber])) +''''
+												+ [WatermarkName] + ' > ' + ''''+CONVERT(VARCHAR,[LastWatermarkNumber]) +'''' + [WatermarkName] + ' <= ' + ''''+CONVERT(VARCHAR,([LastWatermarkNumber] + [MaxIntervalNumber])) +''''
 						ELSE NULL
 					 END
 			
 			--Stats Query
-				,StatSQL = 
+				,StatQuery = 
 					
 					CASE 
 						-- Customized for simple Purview ATLAS API
 					   WHEN Backend IN ('ATLAS REST API','AZURE REST API') THEN EntityName 
 
-						--DEFAULT ANSI SQL For Delta Table
-						WHEN [EntityName] IS NOT NULL AND [DeltaName] IS NOT NULL AND [LastDeltaDate] IS NOT NULL
+					   -- Salesforce
+					   WHEN Backend IN ('Salesforce - Cloud') 
+						THEN [ELT].[uf_GetSalesforceQuery]('StatQuery', IngestID, [EntityName], [WatermarkName], [LastWatermarkDate], NULL, [MaxIntervalMinutes])
+
+						--ADX
+						WHEN Backend = 'ADX - Database' 
+							THEN [ELT].[uf_GetADXQuery]('StatQuery', IngestID, EntityName, WatermarkName, LastWatermarkDate, NULL, MaxIntervalMinutes)
+
+						--DEFAULT ANSI SQL For Watermark Table
+						WHEN [EntityName] IS NOT NULL AND [WatermarkName] IS NOT NULL AND [LastWatermarkDate] IS NOT NULL
 								THEN 
 									CASE 
-										WHEN datediff_big(minute,[LastDeltaDate],@localdate) > [MaxIntervalMinutes] 
+										WHEN datediff_big(minute,[LastWatermarkDate],@localdate) > [MaxIntervalMinutes] 
 											THEN 
-												'SELECT MIN('+[DeltaName]+') AS DataFromTimestamp, MAX('+[DeltaName]+') AS DataToTimestamp, count(1) as SourceCount FROM ' + [EntityName] + ' WHERE ' 
-												+ [DeltaName] + ' > ' + ''''+CONVERT(varchar(30),LastDeltaDate,121)+''''+ ' AND ' + [DeltaName] + ' <= ' + ''''+CONVERT(varchar(30), DATEADD(minute,[MaxIntervalMinutes],[LastDeltaDate]),121)+''''
+												'SELECT MIN('+[WatermarkName]+') AS DataFromTimestamp, MAX('+[WatermarkName]+') AS DataToTimestamp, count(1) as SourceCount FROM ' + [EntityName] + ' WHERE ' 
+												+ [WatermarkName] + ' > ' + ''''+CONVERT(varchar(23),[LastWatermarkDate],121)+''''+ ' AND ' + [WatermarkName] + ' <= ' + ''''+CONVERT(VARCHAR(23), DATEADD(minute,[MaxIntervalMinutes],[LastWatermarkDate]),121)+''''
 										ELSE 
-											'SELECT MIN('+[DeltaName]+') AS DataFromTimestamp, MAX('+[DeltaName]+') AS DataToTimestamp, count(1) as SourceCount FROM ' + [EntityName] + ' WHERE ' 
-											+ [DeltaName] + ' > ' + ''''+CONVERT(varchar(30),[LastDeltaDate],121) +''''+ ' AND ' + [DeltaName] + ' <= ' + ''''+ CONVERT(varchar(30),(@localdate),120)+''''
+											'SELECT MIN('+[WatermarkName]+') AS DataFromTimestamp, MAX('+[WatermarkName]+') AS DataToTimestamp, count(1) as SourceCount FROM ' + [EntityName] + ' WHERE ' 
+											+ [WatermarkName] + ' > ' + ''''+CONVERT(VARCHAR(23),[LastWatermarkDate],121) +''''+ ' AND ' + [WatermarkName] + ' <= ' + ''''+ CONVERT(VARCHAR(23),(@localdate),120)+''''
 										END
-						--Common No Delta
-							WHEN [EntityName] IS NOT NULL AND [DeltaName] IS NULL
-								THEN 'SELECT ''1900-01-01 00:00:00'' AS DataFromTimestamp, '''+CONVERT(VARCHAR(30),ELT.uf_GetAestDateTime(),120)+''' AS DataToTimestamp,  COUNT(*) AS SourceCount FROM ' + [EntityName]
+						--Common No Watermark
+							WHEN [EntityName] IS NOT NULL AND [WatermarkName] IS NULL
+								THEN 'SELECT ''1900-01-01 00:00:00'' AS DataFromTimestamp, '''+CONVERT(VARCHAR(23),ELT.uf_GetAestDateTime(),120)+''' AS DataToTimestamp,  COUNT(*) AS SourceCount FROM ' + [EntityName]
 						--Running Number
-							WHEN [EntityName] IS NOT NULL AND [DeltaName] IS NOT NULL AND [LastDeltaNumber] IS NOT NULL
-									THEN 'SELECT MIN('+[DeltaName]+') AS DataFromTimestamp,' + ' MAX('+[DeltaName]+') AS DataToTimestamp,'+ 'COUNT(*) AS SourceCount FROM ' + [EntityName]
-													+ [DeltaName] + ' > ' + ''''+CONVERT(VARCHAR,[LastDeltaNumber])+'''' + ' AND ' + [DeltaName] + ' <= ' + ''''+CONVERT(VARCHAR,([LastDeltaNumber] + [MaxIntervalNumber]))+''''
+							WHEN [EntityName] IS NOT NULL AND [WatermarkName] IS NOT NULL AND [LastWatermarkNumber] IS NOT NULL
+									THEN 'SELECT MIN('+[WatermarkName]+') AS DataFromTimestamp,' + ' MAX('+[WatermarkName]+') AS DataToTimestamp,'+ 'COUNT(*) AS SourceCount FROM ' + [EntityName]
+													+ [WatermarkName] + ' > ' + ''''+CONVERT(VARCHAR,[LastWatermarkNumber])+'''' + ' AND ' + [WatermarkName] + ' <= ' + ''''+CONVERT(VARCHAR,([LastWatermarkNumber] + [MaxIntervalNumber]))+''''
 							ELSE NULL
 					 END
 
@@ -1011,11 +1426,11 @@ UNION
 				,[StreamName]
 				,[Backend]
 				,[EntityName]
-				,[DeltaName]
-				,[LastDeltaDate]
+				,[WatermarkName]
+				,[LastWatermarkDate]
 				,II.[DataFromTimestamp]
 				,II.[DataToTimestamp]
-				,ID.[LastDeltaNumber]
+				,ID.[LastWatermarkNumber]
 				,II.[DataFromNumber]
 				,II.[DataToNumber]
 				,[DataFormat]
@@ -1034,44 +1449,58 @@ UNION
 				,II.[DestinationRawFile] 		
 			
 				--Derived Fields
-				,SourceSQL = 
+				,SourceQuery = 
 					CASE
 						-- Customized for simple Purview ATLAS API
 					    WHEN Backend IN ('ATLAS REST API','AZURE REST API') THEN EntityName 
-						--DEFAULT ANSI SQL for Delta Table
-						WHEN [EntityName] IS NOT NULL AND [DeltaName] IS NOT NULL AND [LastDeltaDate] IS NOT NULL 
+
+						-- Salesforce
+					   WHEN Backend IN ('Salesforce - Cloud') THEN [ELT].[uf_GetSalesforceQuery]('SourceQuery', ID.[IngestID], [EntityName], [WatermarkName], II.DataFromTimestamp,  II.[DataToTimestamp], NULL)
+
+						--ADX
+						WHEN Backend = 'ADX - Database' THEN [ELT].[uf_GetADXQuery]('SourceQuery',  ID.[IngestID], EntityName, WatermarkName,  II.DataFromTimestamp,  II.[DataToTimestamp], NULL)
+
+						--DEFAULT ANSI SQL for Watermark Table
+						WHEN [EntityName] IS NOT NULL AND [WatermarkName] IS NOT NULL AND [LastWatermarkDate] IS NOT NULL 
 							THEN 'SELECT * FROM ' + [EntityName] + ' WHERE ' 
-									+ [DeltaName] + ' > ' + ''''+ CONVERT(varchar(30),II.[DataFromTimestamp],121)+''''+ ' AND ' + [DeltaName] + ' <= ' + ''''+ CONVERT(varchar(30),II.[DataToTimestamp],121)+''''
-						--Common No Delta
-						WHEN [EntityName] IS NOT NULL AND [DeltaName] IS NULL
+									+ [WatermarkName] + ' > ' + ''''+ CONVERT(VARCHAR(23),II.[DataFromTimestamp],121)+''''+ ' AND ' + [WatermarkName] + ' <= ' + ''''+ CONVERT(VARCHAR(23),II.[DataToTimestamp],121)+''''
+						--Common No Watermark
+						WHEN [EntityName] IS NOT NULL AND [WatermarkName] IS NULL
 							THEN 'SELECT * FROM ' + [EntityName]
 						--Running Number
-						WHEN [EntityName] IS NOT NULL AND [DeltaName] IS NOT NULL AND [LastDeltaNumber] IS NOT NULL
+						WHEN [EntityName] IS NOT NULL AND [WatermarkName] IS NOT NULL AND [LastWatermarkNumber] IS NOT NULL
 								THEN 'SELECT * FROM ' + [EntityName] + ' WHERE ' 
-												+ [DeltaName] + ' > ' + ''''+CONVERT(VARCHAR,II.[DataFromNumber])+'''' + ' AND ' + [DeltaName] + ' <= ' + ''''+CONVERT(VARCHAR,II.[DataToNumber])+''''
+												+ [WatermarkName] + ' > ' + ''''+CONVERT(VARCHAR,II.[DataFromNumber])+'''' + ' AND ' + [WatermarkName] + ' <= ' + ''''+CONVERT(VARCHAR,II.[DataToNumber])+''''
 						
 						ELSE NULL
 					END
 
-				,StatSQL = 
+				,StatQuery = 
 					CASE 
 					-- Customized for simple Purview ATLAS API
 					   WHEN Backend IN ('ATLAS REST API','AZURE REST API') THEN EntityName 
 
-					--DEFAULT ANSI SQL for Delta Table
-						WHEN [EntityName] IS NOT NULL AND [DeltaName] IS NOT NULL AND [LastDeltaDate] IS NOT NULL THEN
-									'SELECT MIN('+[DeltaName]+') AS DataFromTimestamp, MAX('+[DeltaName]+') AS DataToTimestamp, count(1) as SourceCount FROM ' 
-									+ [EntityName] + ' WHERE ' + [DeltaName] + '>' + ''''+CONVERT(varchar(30),II.DataFromTimestamp,121)+''''+ ' AND ' + [DeltaName] + '<='+ ''''+CONVERT(varchar(30),II.[DataToTimestamp],121)+''''
-					--Common No Delta
-						WHEN [EntityName] IS NOT NULL AND [DeltaName] IS NULL AND [LastDeltaDate] IS NOT NULL 
-							THEN 'SELECT MIN('+[DeltaName]+') AS DataFromTimestamp,' + ' MAX('+[DeltaName]+') AS DataToTimestamp,'+ 'COUNT(*) AS SourceCount FROM ' + [EntityName]
-					--Common No Delta
-						WHEN [EntityName] IS NOT NULL AND [DeltaName] IS NULL
-							THEN 'SELECT SELECT ''1900-01-01 00:00:00'' AS DataFromTimestamp, '''+CONVERT(VARCHAR(30),ELT.uf_GetAestDateTime(),120)+''' AS DataToTimestamp, COUNT(*) AS SourceCount FROM ' + [EntityName]
+					-- Salesforce
+					   WHEN Backend IN ('Salesforce - Cloud') THEN [ELT].[uf_GetSalesforceQuery]('StatQuery', ID.[IngestID], [EntityName], [WatermarkName], II.DataFromTimestamp,  II.[DataToTimestamp], NULL)
+
+					--ADX
+						WHEN Backend = 'ADX - Database' THEN [ELT].[uf_GetADXQuery]('StatQuery',  ID.[IngestID], EntityName, WatermarkName,  II.DataFromTimestamp,  II.[DataToTimestamp], NULL)
+
+
+					--DEFAULT ANSI SQL for Watermark Table
+						WHEN [EntityName] IS NOT NULL AND [WatermarkName] IS NOT NULL AND [LastWatermarkDate] IS NOT NULL THEN
+									'SELECT MIN('+[WatermarkName]+') AS DataFromTimestamp, MAX('+[WatermarkName]+') AS DataToTimestamp, count(1) as SourceCount FROM ' 
+									+ [EntityName] + ' WHERE ' + [WatermarkName] + '>' + ''''+CONVERT(VARCHAR(23),II.DataFromTimestamp,121)+''''+ ' AND ' + [WatermarkName] + '<='+ ''''+CONVERT(VARCHAR(23),II.[DataToTimestamp],121)+''''
+					--Common No Watermark
+						WHEN [EntityName] IS NOT NULL AND [WatermarkName] IS NULL AND [LastWatermarkDate] IS NOT NULL 
+							THEN 'SELECT MIN('+[WatermarkName]+') AS DataFromTimestamp,' + ' MAX('+[WatermarkName]+') AS DataToTimestamp,'+ 'COUNT(*) AS SourceCount FROM ' + [EntityName]
+					--Common No Watermark
+						WHEN [EntityName] IS NOT NULL AND [WatermarkName] IS NULL
+							THEN 'SELECT SELECT ''1900-01-01 00:00:00'' AS DataFromTimestamp, '''+CONVERT(VARCHAR(23),ELT.uf_GetAestDateTime(),120)+''' AS DataToTimestamp, COUNT(*) AS SourceCount FROM ' + [EntityName]
 					--Running Number
-						WHEN [EntityName] IS NOT NULL AND [DeltaName] IS NOT NULL AND [LastDeltaNumber] IS NOT NULL
-								THEN 'SELECT MIN('+[DeltaName]+') AS DataFromTimestamp,' + ' MAX('+[DeltaName]+') AS DataToTimestamp,'+ 'COUNT(*) AS SourceCount FROM ' + [EntityName]
-												+ [DeltaName] + ' > ' + ''''+CONVERT(VARCHAR,II.[DataFromNumber]) +'''' + ' AND ' + [DeltaName] + ' <= ' + ''''+CONVERT(VARCHAR,II.[DataToNumber])+''''
+						WHEN [EntityName] IS NOT NULL AND [WatermarkName] IS NOT NULL AND [LastWatermarkNumber] IS NOT NULL
+								THEN 'SELECT MIN('+[WatermarkName]+') AS DataFromTimestamp,' + ' MAX('+[WatermarkName]+') AS DataToTimestamp,'+ 'COUNT(*) AS SourceCount FROM ' + [EntityName]
+												+ [WatermarkName] + ' > ' + ''''+CONVERT(VARCHAR,II.[DataFromNumber]) +'''' + ' AND ' + [WatermarkName] + ' <= ' + ''''+CONVERT(VARCHAR,II.[DataToNumber])+''''
 						ELSE NULL 	
 					END
 
@@ -1128,10 +1557,10 @@ END]]></Value>
 					<References Name="[ELT].[IngestDefinition].[EntityName]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[IngestDefinition].[DeltaName]" />
+					<References Name="[ELT].[IngestDefinition].[WatermarkName]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[IngestDefinition].[LastDeltaDate]" />
+					<References Name="[ELT].[IngestDefinition].[LastWatermarkDate]" />
 				</Entry>
 				<Entry>
 					<References ExternalSource="BuiltIns" Name="[datetime]" />
@@ -1146,7 +1575,7 @@ END]]></Value>
 					<References ExternalSource="BuiltIns" Name="[varchar]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[IngestDefinition].[LastDeltaNumber]" />
+					<References Name="[ELT].[IngestDefinition].[LastWatermarkNumber]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[IngestDefinition].[MaxIntervalNumber]" />
@@ -1222,6 +1651,12 @@ END]]></Value>
 				</Entry>
 				<Entry>
 					<References ExternalSource="BuiltIns" Name="[varchar]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[uf_GetSalesforceQuery]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[uf_GetADXQuery]" />
 				</Entry>
 				<Entry>
 					<References ExternalSource="BuiltIns" Name="[varchar]" />
@@ -1302,10 +1737,10 @@ END]]></Value>
 					<References Name="[ELT].[IngestDefinition].[EntityName]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[IngestDefinition].[DeltaName]" />
+					<References Name="[ELT].[IngestDefinition].[WatermarkName]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[IngestDefinition].[LastDeltaDate]" />
+					<References Name="[ELT].[IngestDefinition].[LastWatermarkDate]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[IngestInstance].[DataFromTimestamp]" />
@@ -1314,7 +1749,7 @@ END]]></Value>
 					<References Name="[ELT].[IngestInstance].[DataToTimestamp]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[IngestDefinition].[LastDeltaNumber]" />
+					<References Name="[ELT].[IngestDefinition].[LastWatermarkNumber]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[IngestInstance].[DataFromNumber]" />
@@ -1365,13 +1800,19 @@ END]]></Value>
 					<References Name="[ELT].[IngestInstance].[DestinationRawFile]" />
 				</Entry>
 				<Entry>
-					<References ExternalSource="BuiltIns" Name="[varchar]" />
+					<References Name="[ELT].[uf_GetSalesforceQuery]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[uf_GetADXQuery]" />
 				</Entry>
 				<Entry>
 					<References ExternalSource="BuiltIns" Name="[varchar]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[IngestDefinition].[LastDeltaNumber]" />
+					<References ExternalSource="BuiltIns" Name="[varchar]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[IngestDefinition].[LastWatermarkNumber]" />
 				</Entry>
 				<Entry>
 					<References ExternalSource="BuiltIns" Name="[varchar]" />
@@ -1469,19 +1910,19 @@ END]]></Value>
 								</Element>
 							</Entry>
 							<Entry>
-								<Element Type="SqlComputedColumn" Name="[ELT].[GetIngestDefinition].[CTE1].[cte].[DeltaName]">
+								<Element Type="SqlComputedColumn" Name="[ELT].[GetIngestDefinition].[CTE1].[cte].[WatermarkName]">
 									<Relationship Name="ExpressionDependencies">
 										<Entry>
-											<References Name="[ELT].[IngestDefinition].[DeltaName]" />
+											<References Name="[ELT].[IngestDefinition].[WatermarkName]" />
 										</Entry>
 									</Relationship>
 								</Element>
 							</Entry>
 							<Entry>
-								<Element Type="SqlComputedColumn" Name="[ELT].[GetIngestDefinition].[CTE1].[cte].[LastDeltaDate]">
+								<Element Type="SqlComputedColumn" Name="[ELT].[GetIngestDefinition].[CTE1].[cte].[LastWatermarkDate]">
 									<Relationship Name="ExpressionDependencies">
 										<Entry>
-											<References Name="[ELT].[IngestDefinition].[LastDeltaDate]" />
+											<References Name="[ELT].[IngestDefinition].[LastWatermarkDate]" />
 										</Entry>
 									</Relationship>
 								</Element>
@@ -1493,10 +1934,10 @@ END]]></Value>
 								<Element Type="SqlComputedColumn" Name="[ELT].[GetIngestDefinition].[CTE1].[cte].[DataToTimestamp]" />
 							</Entry>
 							<Entry>
-								<Element Type="SqlComputedColumn" Name="[ELT].[GetIngestDefinition].[CTE1].[cte].[LastDeltaNumber]">
+								<Element Type="SqlComputedColumn" Name="[ELT].[GetIngestDefinition].[CTE1].[cte].[LastWatermarkNumber]">
 									<Relationship Name="ExpressionDependencies">
 										<Entry>
-											<References Name="[ELT].[IngestDefinition].[LastDeltaNumber]" />
+											<References Name="[ELT].[IngestDefinition].[LastWatermarkNumber]" />
 										</Entry>
 									</Relationship>
 								</Element>
@@ -1622,10 +2063,10 @@ END]]></Value>
 								<Element Type="SqlComputedColumn" Name="[ELT].[GetIngestDefinition].[CTE1].[cte].[DestinationRawFile]" />
 							</Entry>
 							<Entry>
-								<Element Type="SqlComputedColumn" Name="[ELT].[GetIngestDefinition].[CTE1].[cte].[SourceSQL]" />
+								<Element Type="SqlComputedColumn" Name="[ELT].[GetIngestDefinition].[CTE1].[cte].[SourceQuery]" />
 							</Entry>
 							<Entry>
-								<Element Type="SqlComputedColumn" Name="[ELT].[GetIngestDefinition].[CTE1].[cte].[StatSQL]" />
+								<Element Type="SqlComputedColumn" Name="[ELT].[GetIngestDefinition].[CTE1].[cte].[StatQuery]" />
 							</Entry>
 							<Entry>
 								<Element Type="SqlComputedColumn" Name="[ELT].[GetIngestDefinition].[CTE1].[cte].[ReloadFlag]" />
@@ -1698,7 +2139,7 @@ END]]></Value>
 				</Entry>
 			</Relationship>
 			<Annotation Type="SysCommentsObjectAnnotation">
-				<Property Name="Length" Value="11332" />
+				<Property Name="Length" Value="13371" />
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
 				<Property Name="HeaderContents" Value="CREATE PROCEDURE [ELT].[GetIngestDefinition]&#xD;&#xA;&#x9;@SourceSystemName varchar(20),&#xD;&#xA;&#x9;@StreamName VARCHAR(100) = '%', --Default =All Streams&#xD;&#xA;&#x9;@MaxIngestInstance INT = 10&#xD;&#xA;&#x9;&#xD;&#xA;AS" />
@@ -2188,7 +2629,7 @@ RETURN]]></Value>
 	--declare @IngestID int 
 	DECLARE @localdate datetime	= CONVERT(datetime,CONVERT(datetimeoffset, getdate()) AT TIME ZONE 'AUS Eastern Standard Time')
 	DECLARE @CuratedDate datetime
-	SET @CuratedDate = COALESCE(@DeltaDate,@localdate)
+	SET @CuratedDate = COALESCE(@WatermarkDate,@localdate)
 
 
 		SELECT 
@@ -2209,37 +2650,13 @@ RETURN]]></Value>
 			 ,TD.[InputFileHeaderFlag]
 			
 			--Curated File
-			--Need to test how this performs with a file drop and filedrop reload.
-			--Possibly use date drop file was dropped?
-			,TD.[OutputL1CurateFileSystem]
-			
-			,[OutputL1CuratedFolder] = 
-					REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(TD.[OutputL1CuratedFolder]  COLLATE SQL_Latin1_General_CP1_CS_AS
-					,'YYYY',CAST(Year(@CuratedDate) as varchar(4)))
-					,'MM',Right('0'+ CAST(Month(@CuratedDate) AS varchar(2)),2))
-					,'DD',Right('0'+Cast(Day(@CuratedDate) as varchar(2)),2))
-					,'HH',Right('0'+ CAST(DatePart(hh,@CuratedDate) as varchar(2)),2))
-					,'MI',Right('0'+ CAST(DatePart(mi,@CuratedDate) as varchar(2)),2))
-					,'SS',Right('0'+ CAST(DatePart(ss,@CuratedDate) as varchar(2)),2))
+			,TD.[OutputEntityFileSystem]
+			,TD.[OutputEntityFolder]
 
-			,[OutputL1CuratedFile] = 
-					REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(TD.[OutputL1CuratedFile] COLLATE SQL_Latin1_General_CP1_CS_AS
-					,'YYYY',CAST(Year(@CuratedDate) as varchar(4)))
-					,'MM',Right('0'+ CAST(Month(@CuratedDate) AS varchar(2)),2))
-					,'DD',Right('0'+Cast(Day(@CuratedDate) as varchar(2)),2))
-					,'HH',Right('0'+ CAST(DatePart(hh,@CuratedDate) as varchar(2)),2))
-					,'MI',Right('0'+ CAST(DatePart(mi,@CuratedDate) as varchar(2)),2))
-					,'SS',Right('0'+ CAST(DatePart(ss,@CuratedDate) as varchar(2)),2))
-
-			, TD.[OutputL1CuratedFileDelimiter]
-			, TD.[OutputL1CuratedFileFormat]
-			, TD.[OutputL1CuratedFileWriteMode]
-
-			--SQL
+			--Watermark
 			, [LookupColumns]
-			, TD.[OutputDWStagingTable]
-			, TD.[OutputDWTable]
-			, TD.[OutputDWTableWriteMode]
+			, TD.[OutputEntityName]
+			, TD.[OutputEntityWriteMode]
 
 			--Max Retries
 			, TD.[MaxRetries]
@@ -2270,7 +2687,7 @@ RETURN]]></Value>
 					<References ExternalSource="BuiltIns" Name="[datetime]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[GetTransformDefinition_L1].[@DeltaDate]" />
+					<References Name="[ELT].[GetTransformDefinition_L1].[@WatermarkDate]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[L1TransformDefinition]" />
@@ -2303,70 +2720,19 @@ RETURN]]></Value>
 					<References Name="[ELT].[L1TransformDefinition].[InputFileHeaderFlag]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L1TransformDefinition].[OutputL1CurateFileSystem]" />
+					<References Name="[ELT].[L1TransformDefinition].[OutputEntityFileSystem]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L1TransformDefinition].[OutputL1CuratedFolder]" />
-				</Entry>
-				<Entry>
-					<References ExternalSource="BuiltIns" Name="[varchar]" />
-				</Entry>
-				<Entry>
-					<References ExternalSource="BuiltIns" Name="[varchar]" />
-				</Entry>
-				<Entry>
-					<References ExternalSource="BuiltIns" Name="[varchar]" />
-				</Entry>
-				<Entry>
-					<References ExternalSource="BuiltIns" Name="[varchar]" />
-				</Entry>
-				<Entry>
-					<References ExternalSource="BuiltIns" Name="[varchar]" />
-				</Entry>
-				<Entry>
-					<References ExternalSource="BuiltIns" Name="[varchar]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[L1TransformDefinition].[OutputL1CuratedFile]" />
-				</Entry>
-				<Entry>
-					<References ExternalSource="BuiltIns" Name="[varchar]" />
-				</Entry>
-				<Entry>
-					<References ExternalSource="BuiltIns" Name="[varchar]" />
-				</Entry>
-				<Entry>
-					<References ExternalSource="BuiltIns" Name="[varchar]" />
-				</Entry>
-				<Entry>
-					<References ExternalSource="BuiltIns" Name="[varchar]" />
-				</Entry>
-				<Entry>
-					<References ExternalSource="BuiltIns" Name="[varchar]" />
-				</Entry>
-				<Entry>
-					<References ExternalSource="BuiltIns" Name="[varchar]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[L1TransformDefinition].[OutputL1CuratedFileDelimiter]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[L1TransformDefinition].[OutputL1CuratedFileFormat]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[L1TransformDefinition].[OutputL1CuratedFileWriteMode]" />
+					<References Name="[ELT].[L1TransformDefinition].[OutputEntityFolder]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[L1TransformDefinition].[LookupColumns]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L1TransformDefinition].[OutputDWStagingTable]" />
+					<References Name="[ELT].[L1TransformDefinition].[OutputEntityName]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L1TransformDefinition].[OutputDWTable]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[L1TransformDefinition].[OutputDWTableWriteMode]" />
+					<References Name="[ELT].[L1TransformDefinition].[OutputEntityWriteMode]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[L1TransformDefinition].[MaxRetries]" />
@@ -2401,7 +2767,7 @@ RETURN]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSubroutineParameter" Name="[ELT].[GetTransformDefinition_L1].[@DeltaDate]">
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[GetTransformDefinition_L1].[@WatermarkDate]">
 						<Property Name="DefaultExpressionScript">
 							<Value><![CDATA[null]]></Value>
 						</Property>
@@ -2425,10 +2791,10 @@ RETURN]]></Value>
 				</Entry>
 			</Relationship>
 			<Annotation Type="SysCommentsObjectAnnotation">
-				<Property Name="Length" Value="2464" />
+				<Property Name="Length" Value="1122" />
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
-				<Property Name="HeaderContents" Value="CREATE PROCEDURE [ELT].[GetTransformDefinition_L1] &#xD;&#xA;&#x9;&#x9;@IngestID int, &#xD;&#xA;&#x9;&#x9;@DeltaDate datetime = null &#x9;&#x9;&#x9;&#xD;&#xA;AS" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [ELT].[GetTransformDefinition_L1] &#xD;&#xA;&#x9;&#x9;@IngestID int, &#xD;&#xA;&#x9;&#x9;@WatermarkDate datetime = null &#x9;&#x9;&#x9;&#xD;&#xA;AS" />
 			</Annotation>
 		</Element>
 		<Element Type="SqlProcedure" Name="[ELT].[GetTransformDefinition_L2]">
@@ -2437,7 +2803,7 @@ RETURN]]></Value>
 	--declare @IngestID int
 	DECLARE @localdate datetime	= CONVERT(datetime,CONVERT(datetimeoffset, getdate()) at time zone 'AUS Eastern Standard Time')
 
-	--Should be using L2DeltaTransformDate, if null then LocalDate
+	--Should be using L2WatermarkTransformDate, if null then LocalDate
 		SELECT
 			--PK/FK
 			TD.[L2TransformID]
@@ -2460,10 +2826,12 @@ RETURN]]></Value>
 			,TD.[InputFile]
 			,TD.[InputFileDelimiter]
 			,TD.[InputFileHeaderFlag]
-			,TD.[InputDWTable]
-
-			--Deltas
-			,TD.[DeltaName]
+			
+			--InputEntity
+			,TD.[InputEntityName]
+			,TD.[WatermarkName]
+			
+			--Watermarks
 			,[DataFromTimestamp] = NULL
 			,[DataToTimestamp] = NULL
 			,[DataFromNumber] = NULL
@@ -2481,31 +2849,32 @@ RETURN]]></Value>
 		
 			,[OutputL2CuratedFolder] = 
 					REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(TD.[OutputL2CuratedFolder] COLLATE SQL_Latin1_General_CP1_CS_AS
-					,'YYYY',CAST(Year(COALESCE(TD.[LastDeltaDate],@DeltaDate,@localdate)) as varchar(4)))
-					,'MM',Right('0'+ CAST(Month(COALESCE(TD.[LastDeltaDate],@DeltaDate,@localdate)) AS varchar(2)),2))
-					,'DD',Right('0'+Cast(Day(COALESCE(TD.[LastDeltaDate],@localdate)) as varchar(2)),2))
-					,'HH',Right('0'+ CAST(DatePart(hh,COALESCE(TD.[LastDeltaDate],@DeltaDate,@localdate)) as varchar(2)),2))
-					,'MI',Right('0'+ CAST(DatePart(mi,COALESCE(TD.[LastDeltaDate],@DeltaDate,@localdate)) as varchar(2)),2))
-					,'SS',Right('0'+ CAST(DatePart(ss,COALESCE(TD.[LastDeltaDate],@DeltaDate,@localdate)) as varchar(2)),2))
+					,'YYYY',CAST(Year(COALESCE(TD.[LastWatermarkDate],@WatermarkDate,@localdate)) as varchar(4)))
+					,'MM',Right('0'+ CAST(Month(COALESCE(TD.[LastWatermarkDate],@WatermarkDate,@localdate)) AS varchar(2)),2))
+					,'DD',Right('0'+Cast(Day(COALESCE(TD.[LastWatermarkDate],@localdate)) as varchar(2)),2))
+					,'HH',Right('0'+ CAST(DatePart(hh,COALESCE(TD.[LastWatermarkDate],@WatermarkDate,@localdate)) as varchar(2)),2))
+					,'MI',Right('0'+ CAST(DatePart(mi,COALESCE(TD.[LastWatermarkDate],@WatermarkDate,@localdate)) as varchar(2)),2))
+					,'SS',Right('0'+ CAST(DatePart(ss,COALESCE(TD.[LastWatermarkDate],@WatermarkDate,@localdate)) as varchar(2)),2))
 
 			,[OutputL2CuratedFile] = 
 					REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(TD.[OutputL2CuratedFile] COLLATE SQL_Latin1_General_CP1_CS_AS
-					,'YYYY',CAST(Year(COALESCE(TD.[LastDeltaDate],@DeltaDate,@localdate)) as varchar(4)))
-					,'MM',Right('0'+ CAST(Month(COALESCE(TD.[LastDeltaDate],@DeltaDate,@localdate)) AS varchar(2)),2))
-					,'DD',Right('0'+Cast(Day(COALESCE(TD.[LastDeltaDate],@DeltaDate,@localdate)) as varchar(2)),2))
-					,'HH',Right('0'+ CAST(DatePart(hh,COALESCE(TD.[LastDeltaDate],@DeltaDate,@localdate)) as varchar(2)),2))
-					,'MI',Right('0'+ CAST(DatePart(mi,COALESCE(TD.[LastDeltaDate],@DeltaDate,@localdate)) as varchar(2)),2))
-					,'SS',Right('0'+ CAST(DatePart(ss,COALESCE(TD.[LastDeltaDate],@DeltaDate,@localdate)) as varchar(2)),2))
+					,'YYYY',CAST(Year(COALESCE(TD.[LastWatermarkDate],@WatermarkDate,@localdate)) as varchar(4)))
+					,'MM',Right('0'+ CAST(Month(COALESCE(TD.[LastWatermarkDate],@WatermarkDate,@localdate)) AS varchar(2)),2))
+					,'DD',Right('0'+Cast(Day(COALESCE(TD.[LastWatermarkDate],@WatermarkDate,@localdate)) as varchar(2)),2))
+					,'HH',Right('0'+ CAST(DatePart(hh,COALESCE(TD.[LastWatermarkDate],@WatermarkDate,@localdate)) as varchar(2)),2))
+					,'MI',Right('0'+ CAST(DatePart(mi,COALESCE(TD.[LastWatermarkDate],@WatermarkDate,@localdate)) as varchar(2)),2))
+					,'SS',Right('0'+ CAST(DatePart(ss,COALESCE(TD.[LastWatermarkDate],@WatermarkDate,@localdate)) as varchar(2)),2))
 
 			, TD.[OutputL2CuratedFileDelimiter]
 			, TD.[OutputL2CuratedFileFormat]
 			, TD.[OutputL2CuratedFileWriteMode]
 
 			--SQL
-			,TD.[OutputDWStagingTable]
+			,TD.[OutputEntityName]
+			,TD.[OutputEntityFileSystem]
+			,TD.[OutputEntityFolder]
+			,TD.[OutputEntityWriteMode]
 			,TD.[LookupColumns]
-			,TD.[OutputDWTable]
-			,TD.[OutputDWTableWriteMode]
 			
 
 		FROM
@@ -2576,10 +2945,10 @@ RETURN]]></Value>
 					<References Name="[ELT].[L2TransformDefinition].[InputFileHeaderFlag]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L2TransformDefinition].[InputDWTable]" />
+					<References Name="[ELT].[L2TransformDefinition].[InputEntityName]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L2TransformDefinition].[DeltaName]" />
+					<References Name="[ELT].[L2TransformDefinition].[WatermarkName]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[L2TransformDefinition].[MaxIntervalMinutes]" />
@@ -2600,10 +2969,10 @@ RETURN]]></Value>
 					<References ExternalSource="BuiltIns" Name="[varchar]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L2TransformDefinition].[LastDeltaDate]" />
+					<References Name="[ELT].[L2TransformDefinition].[LastWatermarkDate]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[GetTransformDefinition_L2].[@DeltaDate]" />
+					<References Name="[ELT].[GetTransformDefinition_L2].[@WatermarkDate]" />
 				</Entry>
 				<Entry>
 					<References ExternalSource="BuiltIns" Name="[varchar]" />
@@ -2651,16 +3020,19 @@ RETURN]]></Value>
 					<References Name="[ELT].[L2TransformDefinition].[OutputL2CuratedFileWriteMode]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L2TransformDefinition].[OutputDWStagingTable]" />
+					<References Name="[ELT].[L2TransformDefinition].[OutputEntityName]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[L2TransformDefinition].[OutputEntityFileSystem]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[L2TransformDefinition].[OutputEntityFolder]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[L2TransformDefinition].[OutputEntityWriteMode]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[L2TransformDefinition].[LookupColumns]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[L2TransformDefinition].[OutputDWTable]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[L2TransformDefinition].[OutputDWTableWriteMode]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[GetTransformDefinition_L2].[@IngestID]" />
@@ -2695,7 +3067,7 @@ RETURN]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSubroutineParameter" Name="[ELT].[GetTransformDefinition_L2].[@DeltaDate]">
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[GetTransformDefinition_L2].[@WatermarkDate]">
 						<Property Name="DefaultExpressionScript">
 							<Value><![CDATA[null]]></Value>
 						</Property>
@@ -2738,10 +3110,10 @@ RETURN]]></Value>
 				</Entry>
 			</Relationship>
 			<Annotation Type="SysCommentsObjectAnnotation">
-				<Property Name="Length" Value="3317" />
+				<Property Name="Length" Value="3487" />
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
-				<Property Name="HeaderContents" Value="CREATE PROCEDURE [ELT].[GetTransformDefinition_L2] &#xD;&#xA;&#x9;&#x9;@IngestID int, &#xD;&#xA;&#x9;&#x9;@DeltaDate datetime = null,&#xD;&#xA;&#x9;&#x9;@InputType varchar(15) = '%'&#xD;&#xA;AS" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [ELT].[GetTransformDefinition_L2] &#xD;&#xA;&#x9;&#x9;@IngestID int, &#xD;&#xA;&#x9;&#x9;@WatermarkDate datetime = null,&#xD;&#xA;&#x9;&#x9;@InputType varchar(15) = '%'&#xD;&#xA;AS" />
 			</Annotation>
 		</Element>
 		<Element Type="SqlProcedure" Name="[ELT].[GetTransformInstance_L1]">
@@ -2753,27 +3125,32 @@ begin
 			L1TI.[L1TransformInstanceID]
 			, L1TI.[L1TransformID]
 			, L1TI.[IngestID]	
+			, L1TD.[MaxRetries]
 			, L1TI.[NotebookName]
 			, L1TI.[NotebookPath]
-			, L1TI.[CustomParameters]
-			, L1TI.[InputRawFileSystem]
-			, L1TI.[InputRawFileFolder]
-			, L1TI.[InputRawFile]
-			, L1TI.[InputRawFileDelimiter]
-			, L1TI.[InputFileHeaderFlag]
-			, L1TI.[OutputL1CurateFileSystem]
-			, L1TI.[OutputL1CuratedFolder]
-			, L1TI.[OutputL1CuratedFile]
-			, L1TI.[OutputL1CuratedFileDelimiter]
-			, L1TI.[OutputL1CuratedFileFormat]
-			, L1TI.[OutputL1CuratedFileWriteMode]
-			, L1TI.[OutputDWStagingTable]
-			, L1TI.[LookupColumns]
-			, L1TI.[OutputDWTable]
-			, L1TI.[OutputDWTableWriteMode]
-			, L1TI.[ReRunL1TransformFlag]
-			, L1TD.[MaxRetries]
-			, L1TD.[DeltaName]
+			
+
+			--Notebook Parameters
+			,NotebookParameters = 
+				(
+					SELECT 
+					L1TI.[L1TransformInstanceID]
+					, L1TD.[CustomParameters]
+					, L1TI.[InputRawFileSystem]
+					, L1TI.[InputRawFileFolder]
+					, L1TI.[InputRawFile]
+					, L1TI.[InputRawFileDelimiter]
+					, L1TI.[InputFileHeaderFlag]
+					, L1TI.[OutputEntityFileSystem]
+					, L1TI.[OutputEntityFolder]
+					, L1TI.[LookupColumns]
+					, L1TI.[OutputEntityName]
+					, L1TI.[OutputEntityWriteMode]
+					, L1TD.[WatermarkName]
+					, L1TI.[ReRunL1TransformFlag]
+					 FOR JSON PATH, WITHOUT_ARRAY_WRAPPER, INCLUDE_NULL_VALUES
+				)
+			
 			
 		FROM 
 			[ELT].[L1TransformInstance] as L1TI
@@ -2829,13 +3206,16 @@ END]]></Value>
 					<References Name="[ELT].[L1TransformInstance].[IngestID]" />
 				</Entry>
 				<Entry>
+					<References Name="[ELT].[L1TransformDefinition].[MaxRetries]" />
+				</Entry>
+				<Entry>
 					<References Name="[ELT].[L1TransformInstance].[NotebookName]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[L1TransformInstance].[NotebookPath]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L1TransformInstance].[CustomParameters]" />
+					<References Name="[ELT].[L1TransformDefinition].[CustomParameters]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[L1TransformInstance].[InputRawFileSystem]" />
@@ -2853,43 +3233,25 @@ END]]></Value>
 					<References Name="[ELT].[L1TransformInstance].[InputFileHeaderFlag]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L1TransformInstance].[OutputL1CurateFileSystem]" />
+					<References Name="[ELT].[L1TransformInstance].[OutputEntityFileSystem]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L1TransformInstance].[OutputL1CuratedFolder]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[L1TransformInstance].[OutputL1CuratedFile]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[L1TransformInstance].[OutputL1CuratedFileDelimiter]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[L1TransformInstance].[OutputL1CuratedFileFormat]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[L1TransformInstance].[OutputL1CuratedFileWriteMode]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[L1TransformInstance].[OutputDWStagingTable]" />
+					<References Name="[ELT].[L1TransformInstance].[OutputEntityFolder]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[L1TransformInstance].[LookupColumns]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L1TransformInstance].[OutputDWTable]" />
+					<References Name="[ELT].[L1TransformInstance].[OutputEntityName]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L1TransformInstance].[OutputDWTableWriteMode]" />
+					<References Name="[ELT].[L1TransformInstance].[OutputEntityWriteMode]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[L1TransformDefinition].[WatermarkName]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[L1TransformInstance].[ReRunL1TransformFlag]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[L1TransformDefinition].[MaxRetries]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[L1TransformDefinition].[DeltaName]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[IngestDefinition].[SourceSystemName]" />
@@ -3028,7 +3390,7 @@ END]]></Value>
 				</Entry>
 			</Relationship>
 			<Annotation Type="SysCommentsObjectAnnotation">
-				<Property Name="Length" Value="2422" />
+				<Property Name="Length" Value="2452" />
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
 				<Property Name="HeaderContents" Value="CREATE PROCEDURE [ELT].[GetTransformInstance_L1]&#xD;&#xA;&#x9;@SourceSystemName varchar(20),&#xD;&#xA;&#x9;@StreamName varchar(100) = '%',&#xD;&#xA;&#x9;@MaxTransformInstance int = 10,&#xD;&#xA;&#x9;@L1TransformInstanceId INT = NULL, --To fetch all transform instances set Parameter as NULL otherwise provide a specific instance id&#xD;&#xA;&#x9;@DelayL1TransformationFlag INT=NULL --Pass @DelayL1TransformationFlag=0 to fetch all instances that needs to be transformed in the current pipeline (usually the ingestion pipeline). Pass @DelayL1TransformationFlag=1 to fetch all transformations that are scheduled for a later time.&#xD;&#xA;AS" />
@@ -3047,15 +3409,19 @@ begin
 			, L2TI.[L1TransformID]
 			, L2TI.[NotebookPath]
 			, L2TI.[NotebookName]
-			, L2TI.[CustomParameters]
-			, L2TD.[InputType]
+
+			, NotebookParameters = 
+			(
+			SELECT
+			L2TI.L2TransformInstanceID
+			,L2TD.[CustomParameters]
 			, L2TI.[InputFileSystem]
 			, L2TI.[InputFileFolder]
 			, L2TI.[InputFile]
 			, L2TI.[InputFileDelimiter]
 			, L2TI.[InputFileHeaderFlag]
-			, L2TI.[InputDWTable]
-			, L2TI.[DeltaName]
+			, L2TI.[InputEntityName]
+			, L2TI.[WatermarkName]
 			, L2TI.[DataFromTimestamp]
 			, L2TI.[DataToTimestamp]
 			, L2TI.[DataFromNumber]
@@ -3066,10 +3432,19 @@ begin
 			, L2TI.[OutputL2CuratedFileDelimiter]
 			, L2TI.[OutputL2CuratedFileFormat]
 			, L2TI.[OutputL2CuratedFileWriteMode]
-			, L2TI.[OutputDWStagingTable]
+			, L2TI.[OutputEntityName]
+			, L2TI.[OutputEntityFileSystem]
+			, L2TI.[OutputEntityFolder]
 			, L2TI.[LookupColumns]
-			, L2TI.[OutputDWTable]
-			, L2TI.[OutputDWTableWriteMode]
+			, L2TI.[OutputEntityWriteMode]
+			, L2TI.[ReRunL2TransformFlag]
+			 FOR JSON PATH, WITHOUT_ARRAY_WRAPPER, INCLUDE_NULL_VALUES
+			)
+
+			, L2TI.[DataFromTimestamp]
+			, L2TI.[DataToTimestamp]
+			, L2TI.[DataFromNumber]
+			, L2TI.[DataToNumber]
 			, L2TI.[ReRunL2TransformFlag]
 			, L2TD.[MaxRetries]
 	
@@ -3138,10 +3513,7 @@ END]]></Value>
 					<References Name="[ELT].[L2TransformInstance].[NotebookName]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L2TransformInstance].[CustomParameters]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[L2TransformDefinition].[InputType]" />
+					<References Name="[ELT].[L2TransformDefinition].[CustomParameters]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[L2TransformInstance].[InputFileSystem]" />
@@ -3159,10 +3531,10 @@ END]]></Value>
 					<References Name="[ELT].[L2TransformInstance].[InputFileHeaderFlag]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L2TransformInstance].[InputDWTable]" />
+					<References Name="[ELT].[L2TransformInstance].[InputEntityName]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L2TransformInstance].[DeltaName]" />
+					<References Name="[ELT].[L2TransformInstance].[WatermarkName]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[L2TransformInstance].[DataFromTimestamp]" />
@@ -3195,16 +3567,19 @@ END]]></Value>
 					<References Name="[ELT].[L2TransformInstance].[OutputL2CuratedFileWriteMode]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L2TransformInstance].[OutputDWStagingTable]" />
+					<References Name="[ELT].[L2TransformInstance].[OutputEntityName]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[L2TransformInstance].[OutputEntityFileSystem]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[L2TransformInstance].[OutputEntityFolder]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[L2TransformInstance].[LookupColumns]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L2TransformInstance].[OutputDWTable]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[L2TransformInstance].[OutputDWTableWriteMode]" />
+					<References Name="[ELT].[L2TransformInstance].[OutputEntityWriteMode]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[L2TransformInstance].[ReRunL2TransformFlag]" />
@@ -3247,6 +3622,9 @@ END]]></Value>
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[GetTransformInstance_L2].[@DelayL2TransformationFlag]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[L2TransformDefinition].[InputType]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[GetTransformInstance_L2].[@InputType]" />
@@ -3392,7 +3770,7 @@ END]]></Value>
 				</Entry>
 			</Relationship>
 			<Annotation Type="SysCommentsObjectAnnotation">
-				<Property Name="Length" Value="2992" />
+				<Property Name="Length" Value="3308" />
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
 				<Property Name="HeaderContents" Value="CREATE PROCEDURE [ELT].[GetTransformInstance_L2]&#xD;&#xA;&#x9;@SourceSystemName varchar(20),&#xD;&#xA;&#x9;@StreamName varchar(100) = '%',&#xD;&#xA;&#x9;@MaxTransformInstance int = 10,&#xD;&#xA;&#x9;@L2TransformInstanceId INT = NULL, --To fetch all transform instances set Parameter as NULL otherwise provide a specific instance id&#xD;&#xA;&#x9;@DelayL2TransformationFlag INT=NULL, --Pass @DelayL2TransformationFlag=0 to fetch all instances that needs to be transformed in the current pipeline (usually the ingestion pipeline). Pass =1 to fetch @DelayL2TransformationFlagh all transformations that are scheduled for a later time.&#xD;&#xA;&#x9;@InputType varchar(15)&#x9;= '%',&#xD;&#xA;&#x9;@L2TransformID INT=0 --To Fetch all transformations for a specific stream pass 0 otherwise provide TransformId prersent in L2Transsformdefinition&#xD;&#xA;AS" />
@@ -3516,7 +3894,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[IngestDefinition].[DeltaName]">
+					<Element Type="SqlSimpleColumn" Name="[ELT].[IngestDefinition].[WatermarkName]">
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -3532,7 +3910,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[IngestDefinition].[DeltaFormat]">
+					<Element Type="SqlSimpleColumn" Name="[ELT].[IngestDefinition].[WatermarkFormat]">
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -3548,7 +3926,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[IngestDefinition].[LastDeltaDate]">
+					<Element Type="SqlSimpleColumn" Name="[ELT].[IngestDefinition].[LastWatermarkDate]">
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -3564,7 +3942,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[IngestDefinition].[LastDeltaNumber]">
+					<Element Type="SqlSimpleColumn" Name="[ELT].[IngestDefinition].[LastWatermarkNumber]">
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -3579,7 +3957,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[IngestDefinition].[LastDeltaString]">
+					<Element Type="SqlSimpleColumn" Name="[ELT].[IngestDefinition].[LastWatermarkString]">
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -4435,7 +4813,8 @@ DECLARE @localdate as datetime	= CONVERT(datetime,CONVERT(datetimeoffset, getdat
 	IF (@ReloadFlag=0 AND NOT EXISTS (
 										SELECT 1 
 										FROM [ELT].[IngestInstance] 
-										WHERE [DestinationRawFileSystem] = @DestinationRawFileSystem
+										WHERE [IngestInstanceID] = @IngestInstancedID
+										OR [DestinationRawFileSystem] = @DestinationRawFileSystem
 										AND [DestinationRawFolder] = @DestinationRawFolder
 										AND [DestinationRawFile] = @DestinationRawFile
 									)
@@ -4482,7 +4861,8 @@ DECLARE @localdate as datetime	= CONVERT(datetime,CONVERT(datetimeoffset, getdat
 	--Re-load
 	IF (@ReloadFlag=1 
 		OR EXISTS (SELECT 1 FROM [ELT].[IngestInstance] 
-					WHERE [DestinationRawFileSystem] = @DestinationRawFileSystem
+					WHERE [IngestInstanceID] = @IngestInstancedID
+						OR [DestinationRawFileSystem] = @DestinationRawFileSystem
 						AND [DestinationRawFolder] = @DestinationRawFolder
 						AND [DestinationRawFile] = @DestinationRawFile)
 		)
@@ -4497,7 +4877,8 @@ DECLARE @localdate as datetime	= CONVERT(datetime,CONVERT(datetimeoffset, getdat
 			,[ModifiedTimestamp] = @localdate
 			,ADFIngestPipelineRunID = @ADFPipelineRunID
 		--Unique Keys
-		WHERE [DestinationRawFileSystem] = @DestinationRawFileSystem
+		WHERE [IngestInstanceID] = @IngestInstancedID
+		OR	[DestinationRawFileSystem] = @DestinationRawFileSystem
 		AND [DestinationRawFolder] = @DestinationRawFolder
 		AND [DestinationRawFile] = @DestinationRawFile
 	END
@@ -4519,6 +4900,12 @@ END]]></Value>
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[IngestInstance]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[IngestInstance].[IngestInstanceID]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[InsertIngestInstance].[@IngestInstancedID]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[IngestInstance].[DestinationRawFileSystem]" />
@@ -4610,10 +4997,31 @@ END]]></Value>
 				<Entry>
 					<References Name="[ELT].[IngestInstance].[IngestCount]" />
 				</Entry>
+				<Entry>
+					<References Name="[ELT].[IngestInstance].[IngestInstanceID]" />
+				</Entry>
 			</Relationship>
 			<Relationship Name="Parameters">
 				<Entry>
 					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertIngestInstance].[@IngestID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertIngestInstance].[@IngestInstancedID]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[null]]></Value>
+						</Property>
 						<Relationship Name="Type">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -4784,10 +5192,10 @@ END]]></Value>
 				</Entry>
 			</Relationship>
 			<Annotation Type="SysCommentsObjectAnnotation">
-				<Property Name="Length" Value="2961" />
+				<Property Name="Length" Value="3142" />
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
-				<Property Name="HeaderContents" Value="CREATE PROCEDURE [ELT].[InsertIngestInstance]&#xD;&#xA;&#x9;@IngestID INT &#xD;&#xA;&#x9;,@SourceFileDropFileSystem varchar(50)=null &#xD;&#xA;&#x9;,@SourceFileDropFolder varchar(200)=null&#xD;&#xA;&#x9;,@SourceFileDropFile varchar(200)=null&#xD;&#xA;&#x9;,@DestinationRawFileSystem varchar(50)=null &#xD;&#xA;&#x9;,@DestinationRawFolder varchar(200)=null&#xD;&#xA;&#x9;,@DestinationRawFile varchar(200)=null&#xD;&#xA;&#x9;,@ReloadFlag bit =0&#xD;&#xA;&#x9;,@ADFPipelineRunID UniqueIdentifier=null&#xD;&#xA;AS" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [ELT].[InsertIngestInstance]&#xD;&#xA;&#x9;@IngestID INT &#xD;&#xA;&#x9;,@IngestInstancedID int=null&#xD;&#xA;&#x9;,@SourceFileDropFileSystem varchar(50)=null &#xD;&#xA;&#x9;,@SourceFileDropFolder varchar(200)=null&#xD;&#xA;&#x9;,@SourceFileDropFile varchar(200)=null&#xD;&#xA;&#x9;,@DestinationRawFileSystem varchar(50)=null &#xD;&#xA;&#x9;,@DestinationRawFolder varchar(200)=null&#xD;&#xA;&#x9;,@DestinationRawFile varchar(200)=null&#xD;&#xA;&#x9;,@ReloadFlag bit =0&#xD;&#xA;&#x9;,@ADFPipelineRunID UniqueIdentifier=null&#xD;&#xA;AS" />
 			</Annotation>
 		</Element>
 		<Element Type="SqlProcedure" Name="[ELT].[InsertTransformInstance_L1]">
@@ -4823,22 +5231,16 @@ DECLARE @localdate as datetime	= CONVERT(datetime,CONVERT(datetimeoffset, getdat
 				,[IngestID]
 				,[NotebookName]
 				,[NotebookPath]
-				,[CustomParameters]
 				,[InputRawFileSystem]
 				,[InputRawFileFolder]
 				,[InputRawFile]
 				,[InputRawFileDelimiter]
 				,[InputFileHeaderFlag]
-				,[OutputL1CurateFileSystem]
-				,[OutputL1CuratedFolder]
-				,[OutputL1CuratedFile]
-				,[OutputL1CuratedFileDelimiter]
-				,[OutputL1CuratedFileFormat]
-				,[OutputL1CuratedFileWriteMode]
-				,[OutputDWStagingTable]
+				,[OutputEntityFileSystem]
+				,[OutputEntityFolder]
 				,[LookupColumns]
-				,[OutputDWTable]
-				,[OutputDWTableWriteMode]
+				,[OutputEntityName]
+				,[OutputEntityWriteMode]
 				,[RetryCount]
 				,[ActiveFlag]
 				,[IngestCount]
@@ -4854,22 +5256,16 @@ DECLARE @localdate as datetime	= CONVERT(datetime,CONVERT(datetimeoffset, getdat
 				,@IngestID
 				,@NotebookName
 				,@NotebookPath
-				,@CustomParameters
 				,@InputRawFileSystem
 				,@InputRawFileFolder
 				,@InputRawFile
 				,@InputRawFileDelimiter
 				,@InputFileHeaderFlag
-				,@OutputL1CurateFileSystem
-				,@OutputL1CuratedFolder
-				,@OutputL1CuratedFile
-				,@OutputL1CuratedFileDelimiter
-				,@OutputL1CuratedFileFormat
-				,@OutputL1CuratedFileWriteMode
-				,@OutputDWStagingTable
+				,@OutputEntityFileSystem
+				,@OutputEntityFolder
 				,@LookupColumns
-				,@OutputDWTable
-				,@OutputDWTableWriteMode
+				,@OutputEntityName
+				,@OutputEntityWriteMode
 				,0
 				,1
 				,@IngestCount
@@ -4967,9 +5363,6 @@ END]]></Value>
 					<References Name="[ELT].[L1TransformInstance].[NotebookPath]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L1TransformInstance].[CustomParameters]" />
-				</Entry>
-				<Entry>
 					<References Name="[ELT].[L1TransformInstance].[InputRawFileSystem]" />
 				</Entry>
 				<Entry>
@@ -4985,34 +5378,19 @@ END]]></Value>
 					<References Name="[ELT].[L1TransformInstance].[InputFileHeaderFlag]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L1TransformInstance].[OutputL1CurateFileSystem]" />
+					<References Name="[ELT].[L1TransformInstance].[OutputEntityFileSystem]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L1TransformInstance].[OutputL1CuratedFolder]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[L1TransformInstance].[OutputL1CuratedFile]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[L1TransformInstance].[OutputL1CuratedFileDelimiter]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[L1TransformInstance].[OutputL1CuratedFileFormat]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[L1TransformInstance].[OutputL1CuratedFileWriteMode]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[L1TransformInstance].[OutputDWStagingTable]" />
+					<References Name="[ELT].[L1TransformInstance].[OutputEntityFolder]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[L1TransformInstance].[LookupColumns]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L1TransformInstance].[OutputDWTable]" />
+					<References Name="[ELT].[L1TransformInstance].[OutputEntityName]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L1TransformInstance].[OutputDWTableWriteMode]" />
+					<References Name="[ELT].[L1TransformInstance].[OutputEntityWriteMode]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[L1TransformInstance].[RetryCount]" />
@@ -5042,43 +5420,25 @@ END]]></Value>
 					<References Name="[ELT].[InsertTransformInstance_L1].[@NotebookPath]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[InsertTransformInstance_L1].[@CustomParameters]" />
-				</Entry>
-				<Entry>
 					<References Name="[ELT].[InsertTransformInstance_L1].[@InputRawFileDelimiter]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[InsertTransformInstance_L1].[@InputFileHeaderFlag]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[InsertTransformInstance_L1].[@OutputL1CurateFileSystem]" />
+					<References Name="[ELT].[InsertTransformInstance_L1].[@OutputEntityFileSystem]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[InsertTransformInstance_L1].[@OutputL1CuratedFolder]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[InsertTransformInstance_L1].[@OutputL1CuratedFile]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[InsertTransformInstance_L1].[@OutputL1CuratedFileDelimiter]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[InsertTransformInstance_L1].[@OutputL1CuratedFileFormat]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[InsertTransformInstance_L1].[@OutputL1CuratedFileWriteMode]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[InsertTransformInstance_L1].[@OutputDWStagingTable]" />
+					<References Name="[ELT].[InsertTransformInstance_L1].[@OutputEntityFolder]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[InsertTransformInstance_L1].[@LookupColumns]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[InsertTransformInstance_L1].[@OutputDWTable]" />
+					<References Name="[ELT].[InsertTransformInstance_L1].[@OutputEntityName]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[InsertTransformInstance_L1].[@OutputDWTableWriteMode]" />
+					<References Name="[ELT].[InsertTransformInstance_L1].[@OutputEntityWriteMode]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[InsertTransformInstance_L1].[@IngestCount]" />
@@ -5202,25 +5562,6 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L1].[@CustomParameters]">
-						<Property Name="DefaultExpressionScript">
-							<Value><![CDATA[null]]></Value>
-						</Property>
-						<Relationship Name="Type">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="IsMax" Value="True" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
 					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L1].[@InputRawFileSystem]">
 						<Property Name="DefaultExpressionScript">
 							<Value><![CDATA[null]]></Value>
@@ -5315,7 +5656,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L1].[@OutputL1CurateFileSystem]">
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L1].[@OutputEntityFileSystem]">
 						<Property Name="DefaultExpressionScript">
 							<Value><![CDATA[null]]></Value>
 						</Property>
@@ -5334,102 +5675,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L1].[@OutputL1CuratedFolder]">
-						<Property Name="DefaultExpressionScript">
-							<Value><![CDATA[null]]></Value>
-						</Property>
-						<Relationship Name="Type">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Length" Value="200" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L1].[@OutputL1CuratedFile]">
-						<Property Name="DefaultExpressionScript">
-							<Value><![CDATA[null]]></Value>
-						</Property>
-						<Relationship Name="Type">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Length" Value="200" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L1].[@OutputL1CuratedFileDelimiter]">
-						<Property Name="DefaultExpressionScript">
-							<Value><![CDATA[null]]></Value>
-						</Property>
-						<Relationship Name="Type">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Length" Value="1" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[char]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L1].[@OutputL1CuratedFileFormat]">
-						<Property Name="DefaultExpressionScript">
-							<Value><![CDATA[null]]></Value>
-						</Property>
-						<Relationship Name="Type">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Length" Value="10" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L1].[@OutputL1CuratedFileWriteMode]">
-						<Property Name="DefaultExpressionScript">
-							<Value><![CDATA[null]]></Value>
-						</Property>
-						<Relationship Name="Type">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Length" Value="20" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L1].[@OutputDWStagingTable]">
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L1].[@OutputEntityFolder]">
 						<Property Name="DefaultExpressionScript">
 							<Value><![CDATA[null]]></Value>
 						</Property>
@@ -5467,7 +5713,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L1].[@OutputDWTable]">
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L1].[@OutputEntityName]">
 						<Property Name="DefaultExpressionScript">
 							<Value><![CDATA[null]]></Value>
 						</Property>
@@ -5486,7 +5732,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L1].[@OutputDWTableWriteMode]">
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L1].[@OutputEntityWriteMode]">
 						<Property Name="DefaultExpressionScript">
 							<Value><![CDATA[null]]></Value>
 						</Property>
@@ -5547,10 +5793,10 @@ END]]></Value>
 				</Entry>
 			</Relationship>
 			<Annotation Type="SysCommentsObjectAnnotation">
-				<Property Name="Length" Value="4029" />
+				<Property Name="Length" Value="3344" />
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
-				<Property Name="HeaderContents" Value="CREATE PROCEDURE [ELT].[InsertTransformInstance_L1]&#xD;&#xA;&#x9;--PK/FK&#xD;&#xA;&#x9;@L1TransformID int = null,&#xD;&#xA;&#x9;@IngestInstanceID int=null,&#xD;&#xA;&#x9;@IngestID int,&#xD;&#xA;&#xD;&#xA;&#x9;--Databricks Notebook&#xD;&#xA;&#x9;@NotebookName varchar(100) = null,&#xD;&#xA;&#x9;@NotebookPath varchar(200) = null,&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;--Custom&#xD;&#xA;&#x9;@CustomParameters varchar(max) = null,&#xD;&#xA;&#xD;&#xA;&#x9;--Input File&#xD;&#xA;&#x9;@InputRawFileSystem varchar(50) = null,&#xD;&#xA;    @InputRawFileFolder varchar(200) = null,&#xD;&#xA;    @InputRawFile varchar(200) = null,&#xD;&#xA;    @InputRawFileDelimiter char(1) = null,&#xD;&#xA;&#x9;@InputFileHeaderFlag bit = null,&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;--Curated File &#xD;&#xA;&#x9;@OutputL1CurateFileSystem varchar(50) = null,&#xD;&#xA;    @OutputL1CuratedFolder varchar(200) = null,&#xD;&#xA;    @OutputL1CuratedFile varchar(200) = null,&#xD;&#xA;    @OutputL1CuratedFileDelimiter char(1) = null,&#xD;&#xA;    @OutputL1CuratedFileFormat varchar(10) = null,&#xD;&#xA;    @OutputL1CuratedFileWriteMode varchar(20) = null,&#xD;&#xA;    &#xD;&#xA;&#x9;--SQL&#xD;&#xA;&#x9;@OutputDWStagingTable varchar(200) = null,&#xD;&#xA;&#x9;@LookupColumns varchar(4000) = null,&#xD;&#xA;    @OutputDWTable varchar(200) = null,&#xD;&#xA;    @OutputDWTableWriteMode varchar(20) = null,&#xD;&#xA;    @IngestCount int = null,&#xD;&#xA;&#xD;&#xA;&#x9;--ADF Pipeline IDs&#xD;&#xA;&#x9;@IngestADFPipelineRunID  uniqueidentifier = null&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;AS" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [ELT].[InsertTransformInstance_L1]&#xD;&#xA;&#x9;--PK/FK&#xD;&#xA;&#x9;@L1TransformID int = null,&#xD;&#xA;&#x9;@IngestInstanceID int=null,&#xD;&#xA;&#x9;@IngestID int,&#xD;&#xA;&#xD;&#xA;&#x9;--Databricks Notebook&#xD;&#xA;&#x9;@NotebookName varchar(100) = null,&#xD;&#xA;&#x9;@NotebookPath varchar(200) = null,&#xD;&#xA;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;--Input File&#xD;&#xA;&#x9;@InputRawFileSystem varchar(50) = null,&#xD;&#xA;    @InputRawFileFolder varchar(200) = null,&#xD;&#xA;    @InputRawFile varchar(200) = null,&#xD;&#xA;    @InputRawFileDelimiter char(1) = null,&#xD;&#xA;&#x9;@InputFileHeaderFlag bit = null,&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;--Curated File &#xD;&#xA;&#x9;@OutputEntityFileSystem varchar(50) = null,&#xD;&#xA;    @OutputEntityFolder varchar(200) = null,&#xD;&#xA;    &#xD;&#xA;&#x9;--SQL&#xD;&#xA;&#x9;@LookupColumns varchar(4000) = null,&#xD;&#xA;    @OutputEntityName varchar(200) = null,&#xD;&#xA;    @OutputEntityWriteMode varchar(20) = null,&#xD;&#xA;    @IngestCount int = null,&#xD;&#xA;&#xD;&#xA;&#x9;--ADF Pipeline IDs&#xD;&#xA;&#x9;@IngestADFPipelineRunID  uniqueidentifier = null&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;AS" />
 			</Annotation>
 		</Element>
 		<Element Type="SqlProcedure" Name="[ELT].[InsertTransformInstance_L2]">
@@ -5586,24 +5832,24 @@ DECLARE @localdate as datetime	= CONVERT(datetime,CONVERT(datetimeoffset, getdat
 				,[L1TransformID]
 				,[NotebookPath]
 				,[NotebookName]
-				,[CustomParameters]
 				,[InputFileSystem]
 				,[InputFileFolder]
 				,[InputFile]
 				,[InputFileDelimiter]
 				,[InputFileHeaderFlag]
-				,[InputDWTable]
-				,[DeltaName]
+				,[InputEntityName]
+				,[WatermarkName]
 				,[OutputL2CurateFileSystem]
 				,[OutputL2CuratedFolder]
 				,[OutputL2CuratedFile]
 				,[OutputL2CuratedFileDelimiter]
 				,[OutputL2CuratedFileFormat]
 				,[OutputL2CuratedFileWriteMode]
-				,[OutputDWStagingTable]
+				,[OutputEntityName]
+				,[OutputEntityFileSystem]
+				,[OutputEntityFolder]
+				,[OutputEntityWriteMode]
 				,[LookupColumns]
-				,[OutputDWTable]
-				,[OutputDWTableWriteMode]
 				,[RetryCount]
 				,[ActiveFlag]
 				,[IngestADFPipelineRunID]
@@ -5620,24 +5866,24 @@ DECLARE @localdate as datetime	= CONVERT(datetime,CONVERT(datetimeoffset, getdat
 				@L1TransformID,
 				@NotebookPath,
 				@NotebookName,
-				@CustomParameters,
 				@InputFileSystem,
 				@InputFileFolder,
 				@InputFile,
 				@InputFileDelimiter,
 				@InputFileHeaderFlag,
-				@InputDWTable,
-				@DeltaName,
+				@InputEntityName,
+				@WatermarkName,
 				@OutputL2CurateFileSystem,
 				@OutputL2CuratedFolder,
 				@OutputL2CuratedFile,
 				@OutputL2CuratedFileDelimiter,
 				@OutputL2CuratedFileFormat,
 				@OutputL2CuratedFileWriteMode,
-				@OutputDWStagingTable,
+				@OutputEntityName,
+				@OutputEntityFileSystem,
+				@OutputEntityFolder,
+				@OutputEntityWriteMode,
 				@LookupColumns,
-				@OutputDWTable,
-				@OutputDWTableWriteMode,
 				0,
 				1,
 				@IngestADFPipelineRunID,
@@ -5671,7 +5917,6 @@ DECLARE @localdate as datetime	= CONVERT(datetime,CONVERT(datetimeoffset, getdat
 			--Check does curated file record already exist
 			AND OutputL2CurateFileSystem = @OutputL2CurateFileSystem
 			AND OutputL2CuratedFolder = @OutputL2CuratedFolder
-			AND OutputL2CuratedFile = @OutputL2CuratedFile
 			AND (ActiveFlag = 0 AND ISNULL(RetryCount,0)  >= @MaxRetries)
 				
 		END
@@ -5737,9 +5982,6 @@ END]]></Value>
 					<References Name="[ELT].[L2TransformInstance].[NotebookName]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L2TransformInstance].[CustomParameters]" />
-				</Entry>
-				<Entry>
 					<References Name="[ELT].[L2TransformInstance].[InputFileSystem]" />
 				</Entry>
 				<Entry>
@@ -5755,10 +5997,10 @@ END]]></Value>
 					<References Name="[ELT].[L2TransformInstance].[InputFileHeaderFlag]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L2TransformInstance].[InputDWTable]" />
+					<References Name="[ELT].[L2TransformInstance].[InputEntityName]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L2TransformInstance].[DeltaName]" />
+					<References Name="[ELT].[L2TransformInstance].[WatermarkName]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[L2TransformInstance].[OutputL2CurateFileSystem]" />
@@ -5779,16 +6021,19 @@ END]]></Value>
 					<References Name="[ELT].[L2TransformInstance].[OutputL2CuratedFileWriteMode]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L2TransformInstance].[OutputDWStagingTable]" />
+					<References Name="[ELT].[L2TransformInstance].[OutputEntityName]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[L2TransformInstance].[OutputEntityFileSystem]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[L2TransformInstance].[OutputEntityFolder]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[L2TransformInstance].[OutputEntityWriteMode]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[L2TransformInstance].[LookupColumns]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[L2TransformInstance].[OutputDWTable]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[L2TransformInstance].[OutputDWTableWriteMode]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[L2TransformInstance].[RetryCount]" />
@@ -5818,9 +6063,6 @@ END]]></Value>
 					<References Name="[ELT].[InsertTransformInstance_L2].[@NotebookName]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[InsertTransformInstance_L2].[@CustomParameters]" />
-				</Entry>
-				<Entry>
 					<References Name="[ELT].[InsertTransformInstance_L2].[@InputFileSystem]" />
 				</Entry>
 				<Entry>
@@ -5836,10 +6078,10 @@ END]]></Value>
 					<References Name="[ELT].[InsertTransformInstance_L2].[@InputFileHeaderFlag]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[InsertTransformInstance_L2].[@InputDWTable]" />
+					<References Name="[ELT].[InsertTransformInstance_L2].[@InputEntityName]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[InsertTransformInstance_L2].[@DeltaName]" />
+					<References Name="[ELT].[InsertTransformInstance_L2].[@WatermarkName]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[InsertTransformInstance_L2].[@OutputL2CuratedFileDelimiter]" />
@@ -5851,16 +6093,19 @@ END]]></Value>
 					<References Name="[ELT].[InsertTransformInstance_L2].[@OutputL2CuratedFileWriteMode]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[InsertTransformInstance_L2].[@OutputDWStagingTable]" />
+					<References Name="[ELT].[InsertTransformInstance_L2].[@OutputEntityName]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[InsertTransformInstance_L2].[@OutputEntityFileSystem]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[InsertTransformInstance_L2].[@OutputEntityFolder]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[InsertTransformInstance_L2].[@OutputEntityWriteMode]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[InsertTransformInstance_L2].[@LookupColumns]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[InsertTransformInstance_L2].[@OutputDWTable]" />
-				</Entry>
-				<Entry>
-					<References Name="[ELT].[InsertTransformInstance_L2].[@OutputDWTableWriteMode]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[InsertTransformInstance_L2].[@IngestADFPipelineRunID]" />
@@ -5987,25 +6232,6 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L2].[@CustomParameters]">
-						<Property Name="DefaultExpressionScript">
-							<Value><![CDATA[null]]></Value>
-						</Property>
-						<Relationship Name="Type">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="IsMax" Value="True" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
 					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L2].[@InputFileSystem]">
 						<Property Name="DefaultExpressionScript">
 							<Value><![CDATA[null]]></Value>
@@ -6100,7 +6326,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L2].[@InputDWTable]">
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L2].[@InputEntityName]">
 						<Property Name="DefaultExpressionScript">
 							<Value><![CDATA[null]]></Value>
 						</Property>
@@ -6119,7 +6345,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L2].[@DeltaName]">
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L2].[@WatermarkName]">
 						<Property Name="DefaultExpressionScript">
 							<Value><![CDATA[null]]></Value>
 						</Property>
@@ -6212,7 +6438,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L2].[@LastDeltaDate]">
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L2].[@LastWatermarkDate]">
 						<Property Name="DefaultExpressionScript">
 							<Value><![CDATA[null]]></Value>
 						</Property>
@@ -6230,7 +6456,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L2].[@LastDeltaNumber]">
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L2].[@LastWatermarkNumber]">
 						<Property Name="DefaultExpressionScript">
 							<Value><![CDATA[null]]></Value>
 						</Property>
@@ -6249,6 +6475,9 @@ END]]></Value>
 				</Entry>
 				<Entry>
 					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L2].[@OutputL2CurateFileSystem]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[null]]></Value>
+						</Property>
 						<Relationship Name="Type">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -6265,6 +6494,9 @@ END]]></Value>
 				</Entry>
 				<Entry>
 					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L2].[@OutputL2CuratedFolder]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[null]]></Value>
+						</Property>
 						<Relationship Name="Type">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -6281,6 +6513,9 @@ END]]></Value>
 				</Entry>
 				<Entry>
 					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L2].[@OutputL2CuratedFile]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[null]]></Value>
+						</Property>
 						<Relationship Name="Type">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -6341,7 +6576,7 @@ END]]></Value>
 						<Relationship Name="Type">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
-									<Property Name="Length" Value="20" />
+									<Property Name="Length" Value="2" />
 									<Relationship Name="Type">
 										<Entry>
 											<References ExternalSource="BuiltIns" Name="[varchar]" />
@@ -6353,7 +6588,45 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L2].[@OutputDWStagingTable]">
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L2].[@OutputEntityName]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[null]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="200" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L2].[@OutputEntityFileSystem]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[null]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L2].[@OutputEntityFolder]">
 						<Property Name="DefaultExpressionScript">
 							<Value><![CDATA[null]]></Value>
 						</Property>
@@ -6391,26 +6664,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L2].[@OutputDWTable]">
-						<Property Name="DefaultExpressionScript">
-							<Value><![CDATA[null]]></Value>
-						</Property>
-						<Relationship Name="Type">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Length" Value="200" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L2].[@OutputDWTableWriteMode]">
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[InsertTransformInstance_L2].[@OutputEntityWriteMode]">
 						<Property Name="DefaultExpressionScript">
 							<Value><![CDATA[null]]></Value>
 						</Property>
@@ -6489,10 +6743,10 @@ END]]></Value>
 				</Entry>
 			</Relationship>
 			<Annotation Type="SysCommentsObjectAnnotation">
-				<Property Name="Length" Value="4678" />
+				<Property Name="Length" Value="4690" />
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
-				<Property Name="HeaderContents" Value="CREATE PROCEDURE [ELT].[InsertTransformInstance_L2]&#xD;&#xA;&#x9;--PK/FK&#xD;&#xA;&#x9;@L2TransformID int = null,&#xD;&#xA;&#x9;@IngestID int,&#xD;&#xA;&#x9;@L1TransformID int,&#xD;&#xA;&#xD;&#xA;&#x9;--Databricks Notebook&#xD;&#xA;&#x9;@NotebookName varchar(100) = null,&#xD;&#xA;&#x9;@NotebookPath varchar(200) = null,&#xD;&#xA;&#xD;&#xA;&#x9;--Custom&#xD;&#xA;&#x9;@CustomParameters varchar(max) = null,&#xD;&#xA;&#xD;&#xA;&#x9;--Input File&#xD;&#xA;&#x9;@InputFileSystem varchar(50) = null,&#xD;&#xA;    @InputFileFolder varchar(200) = null,&#xD;&#xA;    @InputFile varchar(200) = null,&#xD;&#xA;    @InputFileDelimiter char(1) = null,&#xD;&#xA;&#x9;@InputFileHeaderFlag bit = null,&#xD;&#xA;&#x9;@InputDWTable varchar(200) = null,&#xD;&#xA;&#xD;&#xA;&#x9;--Delta&#xD;&#xA;&#x9;@DeltaName varchar(50) = null,&#xD;&#xA;&#x9;@DataFromTimestamp Datetime2 =null,&#xD;&#xA;&#x9;@DataToTimestamp Datetime2 =null,&#xD;&#xA;&#x9;@DataFromNumber int =null,&#xD;&#xA;&#x9;@DataToNumber int =null,&#xD;&#xA;&#x9;@LastDeltaDate datetime = null,&#xD;&#xA;&#x9;@LastDeltaNumber int = null,&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;--Curated File &#xD;&#xA;&#x9;@OutputL2CurateFileSystem varchar(50),&#xD;&#xA;    @OutputL2CuratedFolder varchar(200),&#xD;&#xA;    @OutputL2CuratedFile varchar(200),&#xD;&#xA;    @OutputL2CuratedFileDelimiter char(1) = null,&#xD;&#xA;    @OutputL2CuratedFileFormat varchar(10) = null,&#xD;&#xA;    @OutputL2CuratedFileWriteMode varchar(20) = null,&#xD;&#xA;&#xD;&#xA;&#x9;--SQL&#xD;&#xA;&#x9;@OutputDWStagingTable varchar(200) = null,&#xD;&#xA;&#x9;@LookupColumns varchar(4000) = null,&#x9;&#xD;&#xA;    @OutputDWTable varchar(200) = null,&#xD;&#xA;    @OutputDWTableWriteMode varchar(20) = null,&#xD;&#xA;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;--ADF Pipeline IDs&#xD;&#xA;&#x9;@IngestADFPipelineRunID uniqueidentifier = null,&#xD;&#xA;&#x9;@L1TransformADFPipelineRunID  uniqueidentifier = null,&#xD;&#xA;&#xD;&#xA;&#x9;--Max Retries&#xD;&#xA;&#x9;@MaxRetries int = null&#xD;&#xA;&#xD;&#xA;AS" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [ELT].[InsertTransformInstance_L2]&#xD;&#xA;&#x9;--PK/FK&#xD;&#xA;&#x9;@L2TransformID int = null,&#xD;&#xA;&#x9;@IngestID int,&#xD;&#xA;&#x9;@L1TransformID int,&#xD;&#xA;&#xD;&#xA;&#x9;--Databricks Notebook&#xD;&#xA;&#x9;@NotebookName varchar(100) = null,&#xD;&#xA;&#x9;@NotebookPath varchar(200) = null,&#xD;&#xA;&#xD;&#xA;&#x9;--Input File&#xD;&#xA;&#x9;@InputFileSystem varchar(50) = null,&#xD;&#xA;    @InputFileFolder varchar(200) = null,&#xD;&#xA;    @InputFile varchar(200) = null,&#xD;&#xA;    @InputFileDelimiter char(1) = null,&#xD;&#xA;&#x9;@InputFileHeaderFlag bit = null,&#xD;&#xA;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;--InputEntity&#xD;&#xA;&#x9;@InputEntityName varchar(200) = null,&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;--Watermark&#xD;&#xA;&#x9;@WatermarkName varchar(50) = null,&#xD;&#xA;&#x9;@DataFromTimestamp Datetime2 =null,&#xD;&#xA;&#x9;@DataToTimestamp Datetime2 =null,&#xD;&#xA;&#x9;@DataFromNumber int =null,&#xD;&#xA;&#x9;@DataToNumber int =null,&#xD;&#xA;&#x9;@LastWatermarkDate datetime = null,&#xD;&#xA;&#x9;@LastWatermarkNumber int = null,&#xD;&#xA;&#xD;&#xA;&#x9;--Curated File &#xD;&#xA;&#x9;@OutputL2CurateFileSystem varchar(50) = null,&#xD;&#xA;    @OutputL2CuratedFolder varchar(200) = null,&#xD;&#xA;&#x9;@OutputL2CuratedFile varchar(200) = null,&#xD;&#xA;&#x9;@OutputL2CuratedFileDelimiter char(1) = null,&#xD;&#xA;&#x9;@OutputL2CuratedFileFormat  varchar(10) = null,&#xD;&#xA;&#x9;@OutputL2CuratedFileWriteMode varchar(2) = null,&#xD;&#xA;&#xD;&#xA;&#x9;--Delta&#xD;&#xA;&#x9;@OutputEntityName varchar(200) = null,&#xD;&#xA;&#x9;@OutputEntityFileSystem varchar(50) = null,&#xD;&#xA;&#x9;@OutputEntityFolder varchar(200) = null,&#xD;&#xA;&#x9;@LookupColumns varchar(4000) = null,&#x9;&#xD;&#xA;    @OutputEntityWriteMode varchar(20) = null,&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;--ADF Pipeline IDs&#xD;&#xA;&#x9;@IngestADFPipelineRunID uniqueidentifier = null,&#xD;&#xA;&#x9;@L1TransformADFPipelineRunID  uniqueidentifier = null,&#xD;&#xA;&#xD;&#xA;&#x9;--Max Retries&#xD;&#xA;&#x9;@MaxRetries int = null&#xD;&#xA;&#xD;&#xA;AS" />
 			</Annotation>
 		</Element>
 		<Element Type="SqlTable" Name="[ELT].[L1TransformDefinition]">
@@ -6662,7 +6916,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformDefinition].[OutputL1CurateFileSystem]">
+					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformDefinition].[OutputEntityFileSystem]">
 						<Property Name="IsNullable" Value="False" />
 						<Relationship Name="TypeSpecifier">
 							<Entry>
@@ -6679,89 +6933,8 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformDefinition].[OutputL1CuratedFolder]">
+					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformDefinition].[OutputEntityFolder]">
 						<Property Name="IsNullable" Value="False" />
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Length" Value="200" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformDefinition].[OutputL1CuratedFile]">
-						<Property Name="IsNullable" Value="False" />
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Length" Value="200" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformDefinition].[OutputL1CuratedFileDelimiter]">
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Length" Value="1" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[char]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformDefinition].[OutputL1CuratedFileFormat]">
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Length" Value="10" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformDefinition].[OutputL1CuratedFileWriteMode]">
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Length" Value="20" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformDefinition].[OutputDWStagingTable]">
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -6793,7 +6966,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformDefinition].[OutputDWTable]">
+					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformDefinition].[OutputEntityName]">
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -6809,7 +6982,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformDefinition].[OutputDWTableWriteMode]">
+					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformDefinition].[OutputEntityWriteMode]">
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -6840,7 +7013,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformDefinition].[DeltaName]">
+					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformDefinition].[WatermarkName]">
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -6948,7 +7121,7 @@ END]]></Value>
 					<Element Type="SqlIndexedColumnSpecification">
 						<Relationship Name="Column">
 							<Entry>
-								<References Name="[ELT].[L1TransformDefinition].[InputRawFileSystem]" />
+								<References Name="[ELT].[L1TransformDefinition].[IngestID]" />
 							</Entry>
 						</Relationship>
 					</Element>
@@ -6957,7 +7130,7 @@ END]]></Value>
 					<Element Type="SqlIndexedColumnSpecification">
 						<Relationship Name="Column">
 							<Entry>
-								<References Name="[ELT].[L1TransformDefinition].[InputRawFileFolder]" />
+								<References Name="[ELT].[L1TransformDefinition].[OutputEntityName]" />
 							</Entry>
 						</Relationship>
 					</Element>
@@ -6966,34 +7139,7 @@ END]]></Value>
 					<Element Type="SqlIndexedColumnSpecification">
 						<Relationship Name="Column">
 							<Entry>
-								<References Name="[ELT].[L1TransformDefinition].[InputRawFile]" />
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlIndexedColumnSpecification">
-						<Relationship Name="Column">
-							<Entry>
-								<References Name="[ELT].[L1TransformDefinition].[OutputL1CurateFileSystem]" />
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlIndexedColumnSpecification">
-						<Relationship Name="Column">
-							<Entry>
-								<References Name="[ELT].[L1TransformDefinition].[OutputL1CuratedFolder]" />
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlIndexedColumnSpecification">
-						<Relationship Name="Column">
-							<Entry>
-								<References Name="[ELT].[L1TransformDefinition].[OutputL1CuratedFile]" />
+								<References Name="[ELT].[L1TransformDefinition].[OutputEntityFolder]" />
 							</Entry>
 						</Relationship>
 					</Element>
@@ -7203,7 +7349,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformInstance].[OutputL1CurateFileSystem]">
+					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformInstance].[OutputEntityFileSystem]">
 						<Property Name="IsNullable" Value="False" />
 						<Relationship Name="TypeSpecifier">
 							<Entry>
@@ -7220,89 +7366,8 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformInstance].[OutputL1CuratedFolder]">
+					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformInstance].[OutputEntityFolder]">
 						<Property Name="IsNullable" Value="False" />
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Length" Value="200" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformInstance].[OutputL1CuratedFile]">
-						<Property Name="IsNullable" Value="False" />
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Length" Value="200" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformInstance].[OutputL1CuratedFileDelimiter]">
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Length" Value="1" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[char]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformInstance].[OutputL1CuratedFileFormat]">
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Length" Value="10" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformInstance].[OutputL1CuratedFileWriteMode]">
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Length" Value="20" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformInstance].[OutputDWStagingTable]">
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -7334,7 +7399,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformInstance].[OutputDWTable]">
+					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformInstance].[OutputEntityName]">
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -7350,7 +7415,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformInstance].[OutputDWTableWriteMode]">
+					<Element Type="SqlSimpleColumn" Name="[ELT].[L1TransformInstance].[OutputEntityWriteMode]">
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -7622,7 +7687,7 @@ END]]></Value>
 					<Element Type="SqlIndexedColumnSpecification">
 						<Relationship Name="Column">
 							<Entry>
-								<References Name="[ELT].[L1TransformInstance].[OutputL1CurateFileSystem]" />
+								<References Name="[ELT].[L1TransformInstance].[OutputEntityName]" />
 							</Entry>
 						</Relationship>
 					</Element>
@@ -7631,16 +7696,7 @@ END]]></Value>
 					<Element Type="SqlIndexedColumnSpecification">
 						<Relationship Name="Column">
 							<Entry>
-								<References Name="[ELT].[L1TransformInstance].[OutputL1CuratedFolder]" />
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlIndexedColumnSpecification">
-						<Relationship Name="Column">
-							<Entry>
-								<References Name="[ELT].[L1TransformInstance].[OutputL1CuratedFile]" />
+								<References Name="[ELT].[L1TransformInstance].[OutputEntityFolder]" />
 							</Entry>
 						</Relationship>
 					</Element>
@@ -7846,7 +7902,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformDefinition].[InputDWTable]">
+					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformDefinition].[InputEntityName]">
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -7862,7 +7918,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformDefinition].[DeltaName]">
+					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformDefinition].[WatermarkName]">
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -7878,7 +7934,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformDefinition].[LastDeltaDate]">
+					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformDefinition].[LastWatermarkDate]">
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -7894,7 +7950,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformDefinition].[LastDeltaNumber]">
+					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformDefinition].[LastWatermarkNumber]">
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -8050,11 +8106,60 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformDefinition].[OutputDWStagingTable]">
+					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformDefinition].[OutputEntityName]">
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
 									<Property Name="Length" Value="200" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformDefinition].[OutputEntityFileSystem]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformDefinition].[OutputEntityFolder]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="200" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformDefinition].[OutputEntityWriteMode]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
 									<Relationship Name="Type">
 										<Entry>
 											<References ExternalSource="BuiltIns" Name="[varchar]" />
@@ -8071,38 +8176,6 @@ END]]></Value>
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
 									<Property Name="Length" Value="4000" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformDefinition].[OutputDWTable]">
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Length" Value="200" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformDefinition].[OutputDWTableWriteMode]">
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Length" Value="20" />
 									<Relationship Name="Type">
 										<Entry>
 											<References ExternalSource="BuiltIns" Name="[varchar]" />
@@ -8250,7 +8323,7 @@ END]]></Value>
 					<Element Type="SqlIndexedColumnSpecification">
 						<Relationship Name="Column">
 							<Entry>
-								<References Name="[ELT].[L2TransformDefinition].[InputDWTable]" />
+								<References Name="[ELT].[L2TransformDefinition].[InputEntityName]" />
 							</Entry>
 						</Relationship>
 					</Element>
@@ -8259,7 +8332,7 @@ END]]></Value>
 					<Element Type="SqlIndexedColumnSpecification">
 						<Relationship Name="Column">
 							<Entry>
-								<References Name="[ELT].[L2TransformDefinition].[OutputL2CurateFileSystem]" />
+								<References Name="[ELT].[L2TransformDefinition].[OutputEntityFileSystem]" />
 							</Entry>
 						</Relationship>
 					</Element>
@@ -8268,16 +8341,7 @@ END]]></Value>
 					<Element Type="SqlIndexedColumnSpecification">
 						<Relationship Name="Column">
 							<Entry>
-								<References Name="[ELT].[L2TransformDefinition].[OutputL2CuratedFolder]" />
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlIndexedColumnSpecification">
-						<Relationship Name="Column">
-							<Entry>
-								<References Name="[ELT].[L2TransformDefinition].[OutputL2CuratedFile]" />
+								<References Name="[ELT].[L2TransformDefinition].[OutputEntityFolder]" />
 							</Entry>
 						</Relationship>
 					</Element>
@@ -8482,7 +8546,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformInstance].[InputDWTable]">
+					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformInstance].[InputEntityName]">
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -8498,7 +8562,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformInstance].[DeltaName]">
+					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformInstance].[WatermarkName]">
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -8577,7 +8641,6 @@ END]]></Value>
 				</Entry>
 				<Entry>
 					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformInstance].[OutputL2CurateFileSystem]">
-						<Property Name="IsNullable" Value="False" />
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -8594,7 +8657,6 @@ END]]></Value>
 				</Entry>
 				<Entry>
 					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformInstance].[OutputL2CuratedFolder]">
-						<Property Name="IsNullable" Value="False" />
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -8611,7 +8673,6 @@ END]]></Value>
 				</Entry>
 				<Entry>
 					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformInstance].[OutputL2CuratedFile]">
-						<Property Name="IsNullable" Value="False" />
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -8675,11 +8736,59 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformInstance].[OutputDWStagingTable]">
+					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformInstance].[OutputEntityName]">
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
 									<Property Name="Length" Value="200" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformInstance].[OutputEntityFileSystem]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformInstance].[OutputEntityFolder]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="200" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformInstance].[OutputEntityWriteMode]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
 									<Relationship Name="Type">
 										<Entry>
 											<References ExternalSource="BuiltIns" Name="[varchar]" />
@@ -8696,38 +8805,6 @@ END]]></Value>
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
 									<Property Name="Length" Value="4000" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformInstance].[OutputDWTable]">
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Length" Value="200" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformInstance].[OutputDWTableWriteMode]">
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Length" Value="20" />
 									<Relationship Name="Type">
 										<Entry>
 											<References ExternalSource="BuiltIns" Name="[varchar]" />
@@ -8969,36 +9046,6 @@ END]]></Value>
 						</Relationship>
 					</Element>
 				</Entry>
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformInstance].[L2SnapshotGroupID]">
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[int]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[ELT].[L2TransformInstance].[L2SnapshotInstanceID]">
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[int]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
 			</Relationship>
 			<Relationship Name="Schema">
 				<Entry>
@@ -9039,7 +9086,7 @@ END]]></Value>
 					<Element Type="SqlIndexedColumnSpecification">
 						<Relationship Name="Column">
 							<Entry>
-								<References Name="[ELT].[L2TransformInstance].[InputDWTable]" />
+								<References Name="[ELT].[L2TransformInstance].[InputEntityName]" />
 							</Entry>
 						</Relationship>
 					</Element>
@@ -9075,6 +9122,24 @@ END]]></Value>
 			<Relationship Name="IndexedObject">
 				<Entry>
 					<References Name="[ELT].[L2TransformInstance]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[ELT].[PK_ColumnMapping]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[ELT].[ColumnMapping].[MappingID]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[ELT].[ColumnMapping]" />
 				</Entry>
 			</Relationship>
 		</Element>
@@ -9186,6 +9251,324 @@ END]]></Value>
 				</Entry>
 			</Relationship>
 		</Element>
+		<Element Type="SqlScalarFunction" Name="[ELT].[uf_GetADXQuery]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[varchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[datetime2]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[varchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[varchar]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[uf_GetADXQuery].[@FromDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[uf_GetADXQuery].[@ToDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[uf_GetADXQuery].[@MaxIntervalMinutes]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[TargetName]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[SourceName]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[IngestID]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[uf_GetADXQuery].[@IngestID]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[ActiveFlag]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[TargetOrdinalPosition]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[IngestID]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[ActiveFlag]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[SourceName]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[uf_GetADXQuery].[@QueryType]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[uf_GetADXQuery].[@EntityName]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[uf_GetADXQuery].[@DeltaName]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="FunctionBody">
+				<Entry>
+					<Element Type="SqlScriptFunctionImplementation">
+						<Property Name="BodyScript">
+							<Value><![CDATA[
+BEGIN
+	--DECLARE @FromDate datetime2
+	Declare @Query varchar(MAX)
+	DECLARE @MappingExists INT
+	DECLARE @Columns NVARCHAR(MAX)
+	Declare @From datetime2(7)
+	DECLARE @FromStr varchar(27), @ToStr varchar(27)
+
+	SET @From = (CASE 
+					WHEN @FromDate is NULL THEN '1900-01-01 00:00:00'
+					ELSE @FromDate
+				END)
+
+	--Datetime Strings
+	SET @ToStr =  CASE 
+					WHEN @ToDate IS NOT NULL
+						THEN @ToDate
+					WHEN @ToDate is NULL AND @MaxIntervalMinutes IS NULL 
+						THEN GETDATE()
+					WHEN @ToDate is NULL AND @MaxIntervalMinutes IS NOT NULL AND DATEADD(DAY,@MaxIntervalMinutes/1440,@From) > GETDATE() 
+						THEN GETDATE()
+					WHEN @ToDate is NULL AND @MaxIntervalMinutes IS NOT NULL AND DATEADD(DAY,@MaxIntervalMinutes/1440,@From) <= GETDATE() 
+						THEN DATEADD(DAY,@MaxIntervalMinutes/1440,@From)
+					ELSE GETDATE()
+					END
+
+	SET @FromStr = (CASE 
+					WHEN @FromDate is NULL THEN '1900-01-01 00:00:00'
+					ELSE @FromDate
+				END)
+
+	--Set Columns
+	SET @Columns = (		
+						SELECT
+							DISTINCT
+								STUFF((
+									SELECT 
+										', ' + TargetName + '=' + SourceName
+								    FROM     
+										[ELT].[ColumnMapping]
+									WHERE IngestID = @IngestID
+										AND ActiveFlag = 1
+									ORDER BY TargetOrdinalPosition ASC
+								       FOR XML PATH('')
+								       ),1,1,'') AS ColumnList
+						FROM
+							[ELT].[ColumnMapping]
+						WHERE IngestID = @IngestID
+							and ActiveFlag = 1 
+						GROUP BY SourceName
+					)
+
+	--SourceQuery
+	IF @QueryType ='SourceQuery'
+		BEGIN
+			SET @Query = 
+			--COALESCE(@Columns, ' * ')
+						@EntityName + ' | take 1000 '
+						+ CASE 
+							WHEN @DeltaName IS NOT NULL
+								THEN ' | where ' 	+ @DeltaName + ' > datetime(' + @FromStr + ') and ' + @DeltaName + ' <=  datetime(' + @ToStr + ')'
+							END
+						+
+						CASE 
+							WHEN @Columns IS NOT NULL
+							 THEN ' | project ' + @Columns
+						END
+		END
+
+
+
+	--SourceQuery
+	IF @QueryType ='StatQuery'
+		BEGIN
+			SET @Query = 
+			--COALESCE(@Columns, ' * ')
+						@EntityName 
+						+ CASE 
+							WHEN @DeltaName IS NOT NULL
+								THEN ' | where ' 	+ @DeltaName + ' > datetime(' + @FromStr + ') and ' + @DeltaName + ' <=  datetime(' + @ToStr + ')'
+									+ ' | summarize DataFromTimestamp=min(' + @DeltaName + '), DataToTimestamp=max(' + @DeltaName + '), SourceCount=count()'
+							WHEN @DeltaName IS NULL
+								THEN ' | summarize DataFromTimestamp=''1900-01-01T00:00:00Z'', DataToTimestamp=''' + @ToStr + ''', SourceCount=count()'
+			
+							END
+		END
+
+ -- Return the result of the function
+	Return @Query
+
+END]]></Value>
+						</Property>
+						<Annotation Type="SysCommentsObjectAnnotation">
+							<Property Name="Length" Value="2926" />
+							<Property Name="StartLine" Value="1" />
+							<Property Name="StartColumn" Value="1" />
+							<Property Name="HeaderContents" Value="CREATE FUNCTION [ELT].[uf_GetADXQuery]&#xD;&#xA;(&#xD;&#xA;&#x9;@QueryType varchar(20), --SourceQuery|StatQuery&#xD;&#xA;&#x9;@IngestID INT,&#xD;&#xA;&#x9;@EntityName varchar(100),&#xD;&#xA;&#x9;@DeltaName varchar(20)=Null,&#xD;&#xA;&#x9;@FromDate datetime2(7)=NULL,&#xD;&#xA;&#x9;@ToDate datetime2(7)=NULL,&#xD;&#xA;&#x9;@MaxIntervalMinutes int=NULL&#xD;&#xA;&#x9;)&#xD;&#xA;RETURNS varchar(MAX)&#xD;&#xA;&#x9;AS" />
+						</Annotation>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[uf_GetADXQuery].[@QueryType]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[uf_GetADXQuery].[@IngestID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[uf_GetADXQuery].[@EntityName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="100" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[uf_GetADXQuery].[@DeltaName]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[Null]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[uf_GetADXQuery].[@FromDate]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[NULL]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Scale" Value="7" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime2]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[uf_GetADXQuery].[@ToDate]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[NULL]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Scale" Value="7" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime2]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[uf_GetADXQuery].[@MaxIntervalMinutes]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[NULL]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[ELT]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Type">
+				<Entry>
+					<Element Type="SqlTypeSpecifier">
+						<Property Name="IsMax" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<References ExternalSource="BuiltIns" Name="[varchar]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+		</Element>
 		<Element Type="SqlScalarFunction" Name="[ELT].[uf_GetAestDateTime]">
 			<Property Name="IsAnsiNullsOn" Value="True" />
 			<Relationship Name="BodyDependencies">
@@ -9225,6 +9608,443 @@ END]]></Value>
 						<Relationship Name="Type">
 							<Entry>
 								<References ExternalSource="BuiltIns" Name="[datetime]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlScalarFunction" Name="[ELT].[uf_GetColumnList]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[SourceName]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[TargetName]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[IngestID]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[uf_GetColumnList].[@IngestID]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[ActiveFlag]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[TargetOrdinalPosition]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[IngestID]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[ActiveFlag]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[SourceName]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="FunctionBody">
+				<Entry>
+					<Element Type="SqlScriptFunctionImplementation">
+						<Property Name="BodyScript">
+							<Value><![CDATA[ BEGIN
+	DECLARE @Columns NVARCHAR(MAX)
+
+	--Attributes
+	SET @Columns = (
+					SELECT
+						DISTINCT 
+						stuff((
+							SELECT ', ' + SourceName + ' as ' + TargetName
+						      FROM     
+								[ELT].[ColumnMapping]
+							WHERE IngestID = @IngestID
+							and ActiveFlag = 1
+							ORDER BY TargetOrdinalPosition ASC
+						       FOR XML PATH('')
+						       ),1,1,'') as Columns
+						FROM [ELT].[ColumnMapping]
+						WHERE IngestID = @IngestID
+						and ActiveFlag = 1
+						GROUP BY SourceName
+					)
+	SET @Columns = COALESCE(@Columns, ' * ')
+				
+ -- Return the columns of the function
+	RETURN @Columns
+END]]></Value>
+						</Property>
+						<Annotation Type="SysCommentsObjectAnnotation">
+							<Property Name="Length" Value="733" />
+							<Property Name="StartLine" Value="1" />
+							<Property Name="StartColumn" Value="1" />
+							<Property Name="HeaderContents" Value="CREATE FUNCTION [ELT].[uf_GetColumnList]&#xD;&#xA;(&#xD;&#xA;&#x9;@IngestID INT&#xD;&#xA;&#x9;)&#xD;&#xA;&#x9;&#xD;&#xA;RETURNS varchar(max)&#xD;&#xA;AS" />
+						</Annotation>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[uf_GetColumnList].[@IngestID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[ELT]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Type">
+				<Entry>
+					<Element Type="SqlTypeSpecifier">
+						<Property Name="IsMax" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<References ExternalSource="BuiltIns" Name="[varchar]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlScalarFunction" Name="[ELT].[uf_GetSalesforceQuery]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[varchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[datetime2]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[varchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[varchar]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[uf_GetSalesforceQuery].[@FromDate]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[datetime]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[uf_GetSalesforceQuery].[@ToDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[uf_GetSalesforceQuery].[@MaxIntervalMinutes]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[datetime]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[SourceName]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[IngestID]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[uf_GetSalesforceQuery].[@IngestID]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[ActiveFlag]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[TargetOrdinalPosition]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[IngestID]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[ActiveFlag]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[ColumnMapping].[SourceName]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[uf_GetSalesforceQuery].[@QueryType]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[uf_GetSalesforceQuery].[@EntityName]" />
+				</Entry>
+				<Entry>
+					<References Name="[ELT].[uf_GetSalesforceQuery].[@DeltaName]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[datetime]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[datetime]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[datetime]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="FunctionBody">
+				<Entry>
+					<Element Type="SqlScriptFunctionImplementation">
+						<Property Name="BodyScript">
+							<Value><![CDATA[
+BEGIN
+	--DECLARE @FromDate datetime2
+	Declare @Query varchar(MAX)
+	DECLARE @MappingExists INT
+	DECLARE @Columns NVARCHAR(MAX)
+	Declare @From datetime2
+	DECLARE @FromStr varchar(27), @ToStr varchar(27)
+
+	SET @From = (CASE 
+					WHEN @FromDate is NULL THEN '1900-01-01 00:00:00'
+					ELSE @FromDate
+				END)
+
+	--Datetime Strings
+	SET @ToStr = FORMAT(CAST((
+								CASE 
+									WHEN @ToDate IS NOT NULL 
+										THEN @ToDate
+								WHEN @ToDate is NULL AND @MaxIntervalMinutes IS NULL 
+									THEN GETDATE()
+								WHEN @ToDate is NULL AND @MaxIntervalMinutes IS NOT NULL AND DATEADD(DAY,@MaxIntervalMinutes/1440,@From) > GETDATE() 
+									THEN GETDATE()
+								WHEN @ToDate is NULL AND @MaxIntervalMinutes IS NOT NULL AND DATEADD(DAY,@MaxIntervalMinutes/1440,@From) <= GETDATE() 
+									THEN DATEADD(DAY,@MaxIntervalMinutes/1440,@From)
+								ELSE GETDATE()
+								END
+							) 
+								as datetime), 'yyyy-MM-ddTHH:mm:ssZ')
+
+	SET @FromStr = (CASE 
+					WHEN @FromDate is NULL THEN '1900-01-01T00:00:00Z'
+					ELSE FORMAT(CAST(@FromDate as datetime), 'yyyy-MM-ddTHH:mm:ssZ')
+				END)
+
+	--Set Columns
+	SET @Columns = (		
+						SELECT
+							DISTINCT
+								STUFF((
+									SELECT 
+										', ' + SourceName
+								    FROM     
+										[ELT].[ColumnMapping]
+									WHERE IngestID = @IngestID
+										AND ActiveFlag = 1
+									ORDER BY TargetOrdinalPosition ASC
+								       FOR XML PATH('')
+								       ),1,1,'') AS ColumnList
+						FROM
+							[ELT].[ColumnMapping]
+						WHERE IngestID = @IngestID
+							and ActiveFlag = 1 
+						GROUP BY SourceName
+					)
+
+	--SourceQuery
+	IF @QueryType ='SourceQuery'
+		BEGIN
+			SET @Query = 
+						'SELECT ' + COALESCE(@Columns, ' * ')
+						+ ' FROM ' + @EntityName 
+						+ CASE 
+							WHEN @DeltaName IS NOT NULL
+								THEN ' WHERE ' 	+ @DeltaName + ' > ' + @FromStr + ' AND ' + @DeltaName + ' <= ' + @ToStr
+							ELSE ''
+						END
+		END
+
+	--StatQuery
+	IF @QueryType ='StatQuery'
+		BEGIN
+			SET @Query = CASE 
+							WHEN @DeltaName IS NOT NULL 
+								THEN 'SELECT MIN('+@DeltaName+') AS DataFromTimestamp,' + ' MAX('+@DeltaName+') AS DataToTimestamp,'+ 'COUNT(*) AS SourceCount' 
+							WHEN @DeltaName IS NULL
+								THEN 'SELECT ''1900-01-01T00:00:00Z'' AS DataFromTimestamp, '''+FORMAT(CAST(GETDATE() as datetime), 'yyyy-MM-ddTHH:mm:ssZ')+''' AS DataToTimestamp,  COUNT(*) AS SourceCount '
+							END
+							+ ' FROM ' + @EntityName 
+							+ CASE 
+								WHEN @DeltaName IS NOT NULL
+									THEN ' WHERE ' + @DeltaName + ' > ' + '''' + FORMAT(CAST(@FromStr as datetime), 'yyyy-MM-dd HH:mm:ss') + '''' +  ' AND ' + @DeltaName + ' <= ' + '''' + FORMAT(CAST(@ToStr as datetime), 'yyyy-MM-dd HH:mm:ss') + ''''
+								ELSE ''
+							END
+						END
+				
+ -- Return the result of the function
+	Return @Query
+
+END]]></Value>
+						</Property>
+						<Annotation Type="SysCommentsObjectAnnotation">
+							<Property Name="Length" Value="3167" />
+							<Property Name="StartLine" Value="1" />
+							<Property Name="StartColumn" Value="1" />
+							<Property Name="HeaderContents" Value="CREATE FUNCTION [ELT].[uf_GetSalesforceQuery]&#xD;&#xA;(&#xD;&#xA;&#x9;@QueryType varchar(20), --SourceQuery|StatQuery&#xD;&#xA;&#x9;@IngestID INT,&#xD;&#xA;&#x9;@EntityName varchar(100),&#xD;&#xA;&#x9;@DeltaName varchar(20),&#xD;&#xA;&#x9;@FromDate datetime2=NULL,&#xD;&#xA;&#x9;@ToDate datetime2=NULL,&#xD;&#xA;&#x9;@MaxIntervalMinutes int=NULL&#xD;&#xA;&#x9;)&#xD;&#xA;RETURNS varchar(MAX)&#xD;&#xA;&#x9;AS" />
+						</Annotation>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[uf_GetSalesforceQuery].[@QueryType]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[uf_GetSalesforceQuery].[@IngestID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[uf_GetSalesforceQuery].[@EntityName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="100" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[uf_GetSalesforceQuery].[@DeltaName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[uf_GetSalesforceQuery].[@FromDate]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[NULL]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Scale" Value="7" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime2]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[uf_GetSalesforceQuery].[@ToDate]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[NULL]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Scale" Value="7" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime2]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[uf_GetSalesforceQuery].[@MaxIntervalMinutes]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[NULL]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[ELT]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Type">
+				<Entry>
+					<Element Type="SqlTypeSpecifier">
+						<Property Name="IsMax" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<References ExternalSource="BuiltIns" Name="[varchar]" />
 							</Entry>
 						</Relationship>
 					</Element>
@@ -9311,36 +10131,36 @@ BEGIN
 		Update 
 			[ELT].[IngestDefinition]
 		SET 
-			[LastDeltaDate] =
+			[LastWatermarkDate] =
 							CASE
-								--When Successful and the DataToDate does not move forward since LastDeltaDate, Increase LastDeltaDate by the Interval
-								WHEN @LastDeltaDate IS NOT NULL AND @ReloadFlag <> 1 AND @IngestStatus IN ('Success','ReRunSuccess') AND @LastDeltaDate = [LastDeltaDate] 
+								--When Successful and the DataToDate does not move forward since LastWatermarkDate, Increase LastWatermarkDate by the Interval
+								WHEN @LastWatermarkDate IS NOT NULL AND @ReloadFlag <> 1 AND @IngestStatus IN ('Success','ReRunSuccess') AND @LastWatermarkDate = [LastWatermarkDate] 
 									and [MaxIntervalMinutes] is NOT NULL
 									THEN 
 										CASE 
 											WHEN 
-												DateAdd(minute,[MaxIntervalMinutes],@LastDeltaDate) > ELT.[uf_GetAestDateTime]()
+												DateAdd(minute,[MaxIntervalMinutes],@LastWatermarkDate) > ELT.[uf_GetAestDateTime]()
 													THEN CONVERT(VARCHAR(30),ELT.[uf_GetAestDateTime](),120)
 											ELSE
-												DateAdd(minute,[MaxIntervalMinutes],[LastDeltaDate])
+												DateAdd(minute,[MaxIntervalMinutes],[LastWatermarkDate])
 										END
-								--Re-run delta date is later than existing delta date
-								WHEN @LastDeltaDate IS NOT NULL AND @IngestStatus IN ('Success','ReRunSuccess') AND datediff_big(ss,[LastDeltaDate],@LastDeltaDate) >= 0 
-									THEN @LastDeltaDate
-								--Re-run delta date is earlier than existing delta date
-								WHEN @LastDeltaDate IS NOT NULL AND @IngestStatus IN ('Success','ReRunSuccess')  AND datediff_big(ss,@LastDeltaDate,[LastDeltaDate]) >=0 
-									THEN [LastDeltaDate]
-								ELSE [LastDeltaDate]
+								--Re-run Watermark date is later than existing Watermark date
+								WHEN @LastWatermarkDate IS NOT NULL AND @IngestStatus IN ('Success','ReRunSuccess') AND datediff_big(ss,[LastWatermarkDate],@LastWatermarkDate) >= 0 
+									THEN @LastWatermarkDate
+								--Re-run Watermark date is earlier than existing Watermark date
+								WHEN @LastWatermarkDate IS NOT NULL AND @IngestStatus IN ('Success','ReRunSuccess')  AND datediff_big(ss,@LastWatermarkDate,[LastWatermarkDate]) >=0 
+									THEN [LastWatermarkDate]
+								ELSE [LastWatermarkDate]
 							END
-			, [LastDeltaNumber] = 
+			, [LastWatermarkNumber] = 
 							CASE
-								WHEN @LastDeltaNumer IS NOT NULL AND @IngestStatus IN ('Success','ReRunSuccess') 
-									THEN @LastDeltaNumer
-								WHEN @LastDeltaNumer IS NOT NULL AND @IngestStatus IN ('Failure','ReRunFailure') 
-									THEN [LastDeltaNumber]
-								WHEN @LastDeltaNumer IS NULL AND @ReloadFlag <> 1 AND @IngestStatus IN ('Success','ReRunSuccess')  
-									THEN ([LastDeltaNumber] + [MaxIntervalNumber])
-								ELSE [LastDeltaNumber]
+								WHEN @LastWatermarkNumber IS NOT NULL AND @IngestStatus IN ('Success','ReRunSuccess') 
+									THEN @LastWatermarkNumber
+								WHEN @LastWatermarkNumber IS NOT NULL AND @IngestStatus IN ('Failure','ReRunFailure') 
+									THEN [LastWatermarkNumber]
+								WHEN @LastWatermarkNumber IS NULL AND @ReloadFlag <> 1 AND @IngestStatus IN ('Success','ReRunSuccess')  
+									THEN ([LastWatermarkNumber] + [MaxIntervalNumber])
+								ELSE [LastWatermarkNumber]
 							END
 			,[ModifiedBy] =suser_sname()
 			, [ModifiedTimestamp]=@localdate
@@ -9362,10 +10182,10 @@ END]]></Value>
 					<References Name="[ELT].[IngestDefinition]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[IngestDefinition].[LastDeltaDate]" />
+					<References Name="[ELT].[IngestDefinition].[LastWatermarkDate]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[UpdateIngestDefinition].[@LastDeltaDate]" />
+					<References Name="[ELT].[UpdateIngestDefinition].[@LastWatermarkDate]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[UpdateIngestDefinition].[@ReloadFlag]" />
@@ -9383,10 +10203,10 @@ END]]></Value>
 					<References ExternalSource="BuiltIns" Name="[varchar]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[IngestDefinition].[LastDeltaNumber]" />
+					<References Name="[ELT].[IngestDefinition].[LastWatermarkNumber]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[UpdateIngestDefinition].[@LastDeltaNumer]" />
+					<References Name="[ELT].[UpdateIngestDefinition].[@LastWatermarkNumber]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[IngestDefinition].[MaxIntervalNumber]" />
@@ -9421,7 +10241,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSubroutineParameter" Name="[ELT].[UpdateIngestDefinition].[@LastDeltaDate]">
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[UpdateIngestDefinition].[@LastWatermarkDate]">
 						<Property Name="DefaultExpressionScript">
 							<Value><![CDATA[null]]></Value>
 						</Property>
@@ -9440,7 +10260,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSubroutineParameter" Name="[ELT].[UpdateIngestDefinition].[@LastDeltaNumer]">
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[UpdateIngestDefinition].[@LastWatermarkNumber]">
 						<Property Name="DefaultExpressionScript">
 							<Value><![CDATA[null]]></Value>
 						</Property>
@@ -9498,10 +10318,10 @@ END]]></Value>
 				</Entry>
 			</Relationship>
 			<Annotation Type="SysCommentsObjectAnnotation">
-				<Property Name="Length" Value="2164" />
+				<Property Name="Length" Value="2296" />
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
-				<Property Name="HeaderContents" Value="CREATE PROCEDURE [ELT].[UpdateIngestDefinition]&#xD;&#xA;&#x9;@IngestID INT,&#xD;&#xA;&#x9;@LastDeltaDate Datetime2=null,&#xD;&#xA;&#x9;@LastDeltaNumer int=null,&#xD;&#xA;&#x9;@IngestStatus varchar(20),&#xD;&#xA;&#x9;@ReloadFlag bit=0&#xD;&#xA;AS" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [ELT].[UpdateIngestDefinition]&#xD;&#xA;&#x9;@IngestID INT,&#xD;&#xA;&#x9;@LastWatermarkDate Datetime2(7)=null,&#xD;&#xA;&#x9;@LastWatermarkNumber int=null,&#xD;&#xA;&#x9;@IngestStatus varchar(20),&#xD;&#xA;&#x9;@ReloadFlag bit=0&#xD;&#xA;AS" />
 			</Annotation>
 		</Element>
 		<Element Type="SqlProcedure" Name="[ELT].[UpdateIngestInstance]">
@@ -9786,10 +10606,10 @@ END]]></Value>
 				</Entry>
 			</Relationship>
 			<Annotation Type="SysCommentsObjectAnnotation">
-				<Property Name="Length" Value="1497" />
+				<Property Name="Length" Value="1503" />
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
-				<Property Name="HeaderContents" Value="CREATE PROCEDURE [ELT].[UpdateIngestInstance]&#xD;&#xA;&#x9;@ADFIngestPipelineRunID Uniqueidentifier,&#xD;&#xA;&#x9;@IngestStatus varchar(20) =null,&#xD;&#xA;&#x9;@DataFromTimestamp Datetime2 =null,&#xD;&#xA;&#x9;@DataToTimestamp Datetime2 =null,&#xD;&#xA;&#x9;@DataFromNumber int =null,&#xD;&#xA;&#x9;@DataToNumber int =null,&#xD;&#xA;&#x9;@SourceCount int=null,&#xD;&#xA;&#x9;@IngestCount int=null,&#xD;&#xA;&#x9;@ReloadFlag bit&#xD;&#xA;AS" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [ELT].[UpdateIngestInstance]&#xD;&#xA;&#x9;@ADFIngestPipelineRunID Uniqueidentifier,&#xD;&#xA;&#x9;@IngestStatus varchar(20) =null,&#xD;&#xA;&#x9;@DataFromTimestamp Datetime2(7) =null,&#xD;&#xA;&#x9;@DataToTimestamp Datetime2(7) =null,&#xD;&#xA;&#x9;@DataFromNumber int =null,&#xD;&#xA;&#x9;@DataToNumber int =null,&#xD;&#xA;&#x9;@SourceCount int=null,&#xD;&#xA;&#x9;@IngestCount int=null,&#xD;&#xA;&#x9;@ReloadFlag bit&#xD;&#xA;AS" />
 			</Annotation>
 		</Element>
 		<Element Type="SqlProcedure" Name="[ELT].[UpdateTransformDefinition_L2]">
@@ -9800,8 +10620,8 @@ BEGIN
 	SET 
 		[ModifiedBy] =suser_sname(),
 		[ModifiedTimestamp]=GETDATE(),
-		[LastDeltaDate] = COALESCE(@LastDeltaDate,[LastDeltaDate],ELT.uf_GetAestDateTime()),
-		[LastDeltaNumber] = COALESCE(@LastDeltaNumber,[LastDeltaNumber])
+		[LastWatermarkDate] = COALESCE(@LastWatermarkDate,[LastWatermarkDate],ELT.uf_GetAestDateTime()),
+		[LastWatermarkNumber] = COALESCE(@LastWatermarkNumber,[LastWatermarkNumber])
 
 	WHERE [L2TransformID] = @L2TransformID
 END]]></Value>
@@ -9818,19 +10638,19 @@ END]]></Value>
 					<References Name="[ELT].[L2TransformDefinition].[ModifiedTimestamp]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L2TransformDefinition].[LastDeltaDate]" />
+					<References Name="[ELT].[L2TransformDefinition].[LastWatermarkDate]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[UpdateTransformDefinition_L2].[@LastDeltaDate]" />
+					<References Name="[ELT].[UpdateTransformDefinition_L2].[@LastWatermarkDate]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[uf_GetAestDateTime]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[L2TransformDefinition].[LastDeltaNumber]" />
+					<References Name="[ELT].[L2TransformDefinition].[LastWatermarkNumber]" />
 				</Entry>
 				<Entry>
-					<References Name="[ELT].[UpdateTransformDefinition_L2].[@LastDeltaNumber]" />
+					<References Name="[ELT].[UpdateTransformDefinition_L2].[@LastWatermarkNumber]" />
 				</Entry>
 				<Entry>
 					<References Name="[ELT].[L2TransformDefinition].[L2TransformID]" />
@@ -9856,7 +10676,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSubroutineParameter" Name="[ELT].[UpdateTransformDefinition_L2].[@LastDeltaDate]">
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[UpdateTransformDefinition_L2].[@LastWatermarkDate]">
 						<Property Name="DefaultExpressionScript">
 							<Value><![CDATA[null]]></Value>
 						</Property>
@@ -9875,7 +10695,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSubroutineParameter" Name="[ELT].[UpdateTransformDefinition_L2].[@LastDeltaNumber]">
+					<Element Type="SqlSubroutineParameter" Name="[ELT].[UpdateTransformDefinition_L2].[@LastWatermarkNumber]">
 						<Property Name="DefaultExpressionScript">
 							<Value><![CDATA[null]]></Value>
 						</Property>
@@ -9899,10 +10719,10 @@ END]]></Value>
 				</Entry>
 			</Relationship>
 			<Annotation Type="SysCommentsObjectAnnotation">
-				<Property Name="Length" Value="466" />
+				<Property Name="Length" Value="498" />
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
-				<Property Name="HeaderContents" Value="CREATE PROCEDURE [ELT].[UpdateTransformDefinition_L2]&#xD;&#xA;&#x9;@L2TransformID INT,&#xD;&#xA;&#x9;@LastDeltaDate Datetime2 =null,&#xD;&#xA;&#x9;@LastDeltaNumber int =null&#xD;&#xA;&#x9;as" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [ELT].[UpdateTransformDefinition_L2]&#xD;&#xA;&#x9;@L2TransformID INT,&#xD;&#xA;&#x9;@LastWatermarkDate Datetime2 =null,&#xD;&#xA;&#x9;@LastWatermarkNumber int =null&#xD;&#xA;&#x9;as" />
 			</Annotation>
 		</Element>
 		<Element Type="SqlProcedure" Name="[ELT].[UpdateTransformInstance_L1]">

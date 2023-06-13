@@ -8,8 +8,6 @@
 	@NotebookName varchar(100) = null,
 	@NotebookPath varchar(200) = null,
 	
-	--Custom
-	@CustomParameters varchar(max) = null,
 
 	--Input File
 	@InputRawFileSystem varchar(50) = null,
@@ -19,18 +17,13 @@
 	@InputFileHeaderFlag bit = null,
 	
 	--Curated File 
-	@OutputL1CurateFileSystem varchar(50) = null,
-    @OutputL1CuratedFolder varchar(200) = null,
-    @OutputL1CuratedFile varchar(200) = null,
-    @OutputL1CuratedFileDelimiter char(1) = null,
-    @OutputL1CuratedFileFormat varchar(10) = null,
-    @OutputL1CuratedFileWriteMode varchar(20) = null,
+	@OutputEntityFileSystem varchar(50) = null,
+    @OutputEntityFolder varchar(200) = null,
     
 	--SQL
-	@OutputDWStagingTable varchar(200) = null,
 	@LookupColumns varchar(4000) = null,
-    @OutputDWTable varchar(200) = null,
-    @OutputDWTableWriteMode varchar(20) = null,
+    @OutputEntityName varchar(200) = null,
+    @OutputEntityWriteMode varchar(20) = null,
     @IngestCount int = null,
 
 	--ADF Pipeline IDs
@@ -70,22 +63,16 @@ DECLARE @localdate as datetime	= CONVERT(datetime,CONVERT(datetimeoffset, getdat
 				,[IngestID]
 				,[NotebookName]
 				,[NotebookPath]
-				,[CustomParameters]
 				,[InputRawFileSystem]
 				,[InputRawFileFolder]
 				,[InputRawFile]
 				,[InputRawFileDelimiter]
 				,[InputFileHeaderFlag]
-				,[OutputL1CurateFileSystem]
-				,[OutputL1CuratedFolder]
-				,[OutputL1CuratedFile]
-				,[OutputL1CuratedFileDelimiter]
-				,[OutputL1CuratedFileFormat]
-				,[OutputL1CuratedFileWriteMode]
-				,[OutputDWStagingTable]
+				,[OutputEntityFileSystem]
+				,[OutputEntityFolder]
 				,[LookupColumns]
-				,[OutputDWTable]
-				,[OutputDWTableWriteMode]
+				,[OutputEntityName]
+				,[OutputEntityWriteMode]
 				,[RetryCount]
 				,[ActiveFlag]
 				,[IngestCount]
@@ -101,22 +88,16 @@ DECLARE @localdate as datetime	= CONVERT(datetime,CONVERT(datetimeoffset, getdat
 				,@IngestID
 				,@NotebookName
 				,@NotebookPath
-				,@CustomParameters
 				,@InputRawFileSystem
 				,@InputRawFileFolder
 				,@InputRawFile
 				,@InputRawFileDelimiter
 				,@InputFileHeaderFlag
-				,@OutputL1CurateFileSystem
-				,@OutputL1CuratedFolder
-				,@OutputL1CuratedFile
-				,@OutputL1CuratedFileDelimiter
-				,@OutputL1CuratedFileFormat
-				,@OutputL1CuratedFileWriteMode
-				,@OutputDWStagingTable
+				,@OutputEntityFileSystem
+				,@OutputEntityFolder
 				,@LookupColumns
-				,@OutputDWTable
-				,@OutputDWTableWriteMode
+				,@OutputEntityName
+				,@OutputEntityWriteMode
 				,0
 				,1
 				,@IngestCount
@@ -153,6 +134,6 @@ DECLARE @localdate as datetime	= CONVERT(datetime,CONVERT(datetimeoffset, getdat
 			AND InputRawFile = @InputRawFile
 		END
 END
-
+GO
 
 
