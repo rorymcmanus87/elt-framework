@@ -1,8 +1,8 @@
 ﻿CREATE TABLE [ELT].[ColumnMapping](
 	[MappingID] [int] IDENTITY(1,1) NOT NULL,
 	[IngestID] [int] NULL,
-	[L1TransformId] [int] NULL,
-	[L2TransformId] [int] NULL,
+	[L1TransformID] [int] NULL,
+	[L2TransformID] [int] NULL,
 	[SourceName] [nvarchar](128) NOT NULL,
 	[TargetName] [nvarchar](128) NOT NULL,
 	[Description] [nvarchar](250) NULL,

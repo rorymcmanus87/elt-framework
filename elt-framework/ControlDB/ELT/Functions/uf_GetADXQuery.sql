@@ -1,7 +1,7 @@
 ﻿CREATE FUNCTION [ELT].[uf_GetADXQuery]
 (
 	@QueryType varchar(20), --SourceQuery|StatQuery
-	@IngestId INT,
+	@IngestID INT,
 	@EntityName varchar(100),
 	@DeltaName varchar(20)=Null,
 	@FromDate datetime2(7)=NULL,
@@ -50,14 +50,14 @@ BEGIN
 										', ' + TargetName + '=' + SourceName
 								    FROM     
 										[ELT].[ColumnMapping]
-									WHERE IngestId = @IngestId
+									WHERE IngestID = @IngestID
 										AND ActiveFlag = 1
 									ORDER BY TargetOrdinalPosition ASC
 								       FOR XML PATH('')
 								       ),1,1,'') AS ColumnList
 						FROM
 							[ELT].[ColumnMapping]
-						WHERE IngestId = @IngestId
+						WHERE IngestID = @IngestID
 							and ActiveFlag = 1 
 						GROUP BY SourceName
 					)
